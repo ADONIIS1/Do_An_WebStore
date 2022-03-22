@@ -23,7 +23,7 @@ namespace WebStoreFZF.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="WebStoreFZF")]
-	public partial class MyDataDataContext : System.Data.Linq.DataContext
+	public partial class MyDataContextDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -50,31 +50,31 @@ namespace WebStoreFZF.Models
     partial void DeleteUser(User instance);
     #endregion
 		
-		public MyDataDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["WebStoreFZFConnectionString"].ConnectionString, mappingSource)
+		public MyDataContextDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["WebStoreFZFConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDataDataContext(string connection) : 
+		public MyDataContextDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDataDataContext(System.Data.IDbConnection connection) : 
+		public MyDataContextDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDataDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public MyDataContextDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDataDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public MyDataContextDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebStoreFZF.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "AllProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AllProducts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TENSANPHAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DONGIA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOLUONGTON)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ROM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANHBIA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdKIEUSP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENSANPHAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MOTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DONGIA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOLUONGTON)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ROM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANHBIA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdKIEUSP)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdSANPHAN }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdSANPHAN }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdSANPHAN })
+        </td>
+    </tr>
+}
+
+</table>
