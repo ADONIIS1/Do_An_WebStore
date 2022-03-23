@@ -121,6 +121,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +147,12 @@
     <Content Include="css\plyr.css" />
     <Content Include="css\slicknav.min.css" />
     <Content Include="css\style.css" />
+    <Content Include="dist\all.css" />
+    <Content Include="dist\images\dashboard.png" />
+    <Content Include="dist\images\login-new.jpeg" />
+    <Content Include="dist\images\login.jpeg" />
+    <Content Include="dist\images\login.png" />
+    <Content Include="dist\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -158,6 +165,7 @@
     <Content Include="js\mixitup.min.js" />
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\player.js" />
+    <Content Include="main.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\MyDataContext.dbml">
@@ -165,6 +173,9 @@
       <LastGenOutput>MyDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
     <None Include="Models\MyDataContext.dbml.layout">
       <DependentUpon>MyDataContext.dbml</DependentUpon>
     </None>
@@ -195,6 +206,24 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Products\AllProducts.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Shared\LayoutAdmin.cshtml" />
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Admin\ThongKe.cshtml" />
+    <Content Include="Views\Admin\LoaiThietBi.cshtml" />
+    <Content Include="Views\Admin\HangSanXuat.cshtml" />
+    <Content Include="Views\Admin\MatHang.cshtml" />
+    <Content Include="Views\Admin\KhachHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
