@@ -224,6 +224,8 @@
     <Content Include="Views\Admin\HangSanXuat.cshtml" />
     <Content Include="Views\Admin\MatHang.cshtml" />
     <Content Include="Views\Admin\KhachHang.cshtml" />
+    <Content Include="Views\Admin\ThemLoaithietbi.cshtml" />
+    <Content Include="Views\Admin\SuaLoaithietbi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
