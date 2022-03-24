@@ -92,7 +92,7 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult HangSanXuat()
         {
-            var kieu = data.KIEUSANPHAMs.ToList();
+            var kieu = data.HangSXes.ToList();
             return View(kieu);
         }
         [HttpGet]
@@ -101,15 +101,15 @@ namespace WebStoreFZF.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ThemKieuSP(KIEUSANPHAM kieu, FormCollection collection)
+        public ActionResult ThemKieuSP(HangSX kieu, FormCollection collection)
         {
             var ten = collection["TENKIEULOAISP"];
             if (String.IsNullOrEmpty(ten))
                 ViewData["Loi1"] = "Tên kiểu sản phẩm không được để trống";
             else
             {
-                kieu.TENKIEUSANPHAM = ten;
-                data.KIEUSANPHAMs.InsertOnSubmit(kieu);
+                kieu.TenHangSX = ten;
+                data.HangSXes.InsertOnSubmit(kieu);
                 data.SubmitChanges();
                 return RedirectToAction("KieuSP");
             }
@@ -117,7 +117,7 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult SuaKieuSP(int id)
         {
-            var sk = data.KIEUSANPHAMs.First(n => n.IdKIEUSP == id);
+            var sk = data.HangSXes.First(n => n.IdHangSX == id);
             if (sk == null)
             {
                 Response.SubStatusCode = 404;
@@ -128,12 +128,12 @@ namespace WebStoreFZF.Controllers
         [HttpPost]
         public ActionResult SuaKieuSP(int id, FormCollection collection)
         {
-            var kieu = data.KIEUSANPHAMs.First(n => n.IdKIEUSP == id);
+            var kieu = data.HangSXes.First(n => n.IdHangSX == id);
             var ten = collection["TENKIEULOAISP"];
-            var kt = data.KIEUSANPHAMs.ToList();
+            var kt = data.HangSXes.ToList();
             foreach (var item in kt)
             {
-                if (String.Compare(item.TENKIEUSANPHAM, ten, true) == 0 && item.IdKIEUSP != id)
+                if (String.Compare(item.TenHangSX, ten, true) == 0 && item.IdHangSX != id)
                 {
                     ViewData["Loi0"] = "Mã kiểu sản phẩm này đã tồn tại";
                     return this.SuaKieuSP(id);
@@ -145,7 +145,7 @@ namespace WebStoreFZF.Controllers
             }
             else
             {
-                kieu.TENKIEUSANPHAM = ten;
+                kieu.TenHangSX = ten;
                 UpdateModel(kieu);
                 data.SubmitChanges();
                 return RedirectToAction("KieuSP");

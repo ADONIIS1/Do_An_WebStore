@@ -21,19 +21,19 @@ namespace WebStoreFZF.Controllers
 
         public ActionResult Laptop()
         {
-            var all_laptop = data.SANPHAMs.Where(s => s.KIEUSANPHAM.IdLOAISP == 2).ToList();
+            var all_laptop = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 2).ToList();
             return View(all_laptop);
         }
 
         public ActionResult Phone()
         {
-            var all_phone = data.SANPHAMs.Where(s => s.KIEUSANPHAM.IdLOAISP == 1).ToList();
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 1).ToList();
             return View(all_phone);
         }
 
         public ActionResult Accessory()
         {
-            var all_accessory = data.SANPHAMs.Where(s => s.KIEUSANPHAM.IdLOAISP == 3).ToList();
+            var all_accessory = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
             return View(all_accessory);
         }
 
@@ -61,11 +61,11 @@ namespace WebStoreFZF.Controllers
                 s.TENSANPHAM = TenSanPham.ToString();
                 s.MOTA = Mota.ToString();
                 s.DONGIA = DonGia;
-                s.SOLUONGTON = SoLuongTon;
+              
                 s.ROM = Rom;
                 s.RAM = Ram;
                 s.ANHBIA = Anh;
-                s.IdKIEUSP = IDKieuSP;
+                s.IdHangSX = IDKieuSP;
                 data.SANPHAMs.InsertOnSubmit(s);
                 data.SubmitChanges();
                 return RedirectToAction("AllProducts");
@@ -75,13 +75,13 @@ namespace WebStoreFZF.Controllers
 
         public ActionResult Edit(int id)
         {
-            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAN == id);
+            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAM == id);
             return View(sanPham);
         }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAN == id);
+            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAM == id);
             var TenSanPham = collection["TENSANPHAM"];
             var Mota = collection["MOTA"];
             var DonGia = Convert.ToDouble(collection["DONGIA"]);
@@ -90,7 +90,7 @@ namespace WebStoreFZF.Controllers
             var Ram = Convert.ToInt32(collection["RAM"]);
             var Anh = collection["ANHBIA"];
             var IDKieuSP = Convert.ToInt32(collection["IdKIEUSP"]);
-            sanPham.IdSANPHAN = id;
+            sanPham.IdSANPHAM = id;
             if (sanPham == null)
             {
                 ViewData["Error"] = "Don't empty!";
@@ -100,11 +100,11 @@ namespace WebStoreFZF.Controllers
                 TenSanPham = sanPham.TENSANPHAM;
                 Mota = sanPham.MOTA;
                 DonGia = (double)sanPham.DONGIA;
-                SoLuongTon = (int)sanPham.SOLUONGTON;
+                
                 Rom = (int)sanPham.ROM;
                 Ram = (int)sanPham.RAM;
                 Anh = sanPham.ANHBIA;
-                IDKieuSP = (int)sanPham.IdKIEUSP;
+                IDKieuSP = (int)sanPham.IdHangSX;
                 UpdateModel(sanPham);
                 data.SubmitChanges();
                 return RedirectToAction("AllProducts");
@@ -115,13 +115,13 @@ namespace WebStoreFZF.Controllers
 
         public ActionResult Delete(int id)
         {
-            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAN == id);
+            var sanPham = data.SANPHAMs.First(m => m.IdSANPHAM == id);
             return View(sanPham);
         }
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var D_sach = data.SANPHAMs.Where(m => m.IdSANPHAN == id).First();
+            var D_sach = data.SANPHAMs.Where(m => m.IdSANPHAM == id).First();
             data.SANPHAMs.DeleteOnSubmit(D_sach);
             data.SubmitChanges();
             return RedirectToAction("AllProducts");
