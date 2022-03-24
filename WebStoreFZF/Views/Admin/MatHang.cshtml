@@ -1,4 +1,4 @@
-﻿
+﻿@model  WebStoreFZF.Models.SPVM
 @{
     ViewBag.Title = "MatHang";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
@@ -9,122 +9,61 @@
         <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
             <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                 <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
-                    Mặt Hàng
+                    Sản phẩm
+                </div>
+                <div class="d-flex md:items-center" style="margin-top: 10px ">
+                    <div class="md:w-2/3">
+
+                        <a href="~/Admin/ThemSP">
+                            <input class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default"
+                                   type="button" value="Create">
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3" style="margin: 15px auto">
+                    <div class="md:w-2/4 block">
+                        <div>
+                            @Html.DropDownList("IdKIEUSP", null, "Chọn kiểu", htmlAttributes: new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500" })
+                        </div>
+                    </div>
                 </div>
                 <div class="p-3">
                     <table class="table-responsive w-full rounded">
                         <thead>
                             <tr>
-                                <th class="border w-1/4 px-4 py-2">Student Name</th>
-                                <th class="border w-1/6 px-4 py-2">City</th>
-                                <th class="border w-1/6 px-4 py-2">Course</th>
-                                <th class="border w-1/6 px-4 py-2">Fee</th>
-                                <th class="border w-1/7 px-4 py-2">Status</th>
+                                <th class="border w-1/4 px-4 py-2">Mã sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Tên sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Mô tả sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Đơn giá sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">ROM sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">RAM sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Ảnh bìa sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Tên hãng sản xuất</th>
                                 <th class="border w-1/5 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border px-4 py-2">Micheal Clarke</td>
-                                <td class="border px-4 py-2">Sydney</td>
-                                <td class="border px-4 py-2">MS</td>
-                                <td class="border px-4 py-2">900 $</td>
-                                <td class="border px-4 py-2">
-                                    <i class="fas fa-check text-green-500 mx-2"></i>
-                                </td>
-                                <td class="border px-4 py-2">
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2">Rickey Ponting</td>
-                                <td class="border px-4 py-2">Sydney</td>
-                                <td class="border px-4 py-2">MS</td>
-                                <td class="border px-4 py-2">300 $</td>
-                                <td class="border px-4 py-2">
-                                    <i class="fas fa-times text-red-500 mx-2"></i>
-                                </td>
-                                <td class="border px-4 py-2">
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2">Micheal Clarke</td>
-                                <td class="border px-4 py-2">Sydney</td>
-                                <td class="border px-4 py-2">MS</td>
-                                <td class="border px-4 py-2">900 $</td>
-                                <td class="border px-4 py-2">
-                                    <i class="fas fa-check text-green-500 mx-2"></i>
-                                </td>
-                                <td class="border px-4 py-2">
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2">Micheal Clarke</td>
-                                <td class="border px-4 py-2">Sydney</td>
-                                <td class="border px-4 py-2">MS</td>
-                                <td class="border px-4 py-2">900 $</td>
-                                <td class="border px-4 py-2">
-                                    <i class="fas fa-check text-green-500 mx-2"></i>
-                                </td>
-                                <td class="border px-4 py-2">
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2">Micheal Clarke</td>
-                                <td class="border px-4 py-2">Sydney</td>
-                                <td class="border px-4 py-2">MS</td>
-                                <td class="border px-4 py-2">900 $</td>
-                                <td class="border px-4 py-2">
-                                    <i class="fas fa-check text-green-500 mx-2"></i>
-                                </td>
-                                <td class="border px-4 py-2">
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
+                        @for (int i = 0; i < Model.SectionList1.Count; i++)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].IdSP)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].TENSANPHAM)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].MOTA)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].DONGIA)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ROM)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].RAM)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ANHBIA)</td>
+                                    <td class="border px-4 py-2">
+                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white" href="@Url.Action("SuaSP", new { id = Model.SectionList1[i].IdSP})">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500" onclick="return ConfirmXoa()" href="@Url.Action("XoaSP", new { id = Model.SectionList1[i].IdSP })">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
                     </table>
                 </div>
             </div>
@@ -132,4 +71,16 @@
         <!--/Grid Form-->
     </div>
 </main>
+
+<script>
+    function ConfirmXoa() {
+        if (confirm("Bạn có chắc muốn xóa loại sản phẩm này không ?"))
+            return true;
+        else
+            return false;
+    }
+    FocusEvent = false;
+    checked = false;
+
+</script>
 

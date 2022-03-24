@@ -127,11 +127,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HangSanXuatVM.cs" />
     <Compile Include="Models\MyDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SPVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,14 +170,14 @@
     <Content Include="main.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
     <Content Include="Models\MyDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>MyDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="webfonts\fa-brands-400.svg" />
-    <Content Include="webfonts\fa-regular-400.svg" />
-    <Content Include="webfonts\fa-solid-900.svg" />
     <None Include="Models\MyDataContext.dbml.layout">
       <DependentUpon>MyDataContext.dbml</DependentUpon>
     </None>
@@ -226,6 +228,10 @@
     <Content Include="Views\Admin\KhachHang.cshtml" />
     <Content Include="Views\Admin\ThemLoaithietbi.cshtml" />
     <Content Include="Views\Admin\SuaLoaithietbi.cshtml" />
+    <Content Include="Views\Admin\ThemKieuSP.cshtml" />
+    <Content Include="Views\Admin\SuaKieuSP.cshtml" />
+    <Content Include="Views\Admin\ThemSP.cshtml" />
+    <Content Include="Views\Admin\SuaSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

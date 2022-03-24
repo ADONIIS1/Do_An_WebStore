@@ -29,6 +29,7 @@ namespace WebStoreFZF.Controllers
         [HttpPost]
         public ActionResult ThemLoaithietbi(LOAISANPHAM loai, FormCollection collection)
         {
+
             var ten = collection["TENLOAISP"];
             if (String.IsNullOrEmpty(ten))
                 ViewData["Loi1"] = "Tên loại sản phẩm không được để trống";
@@ -92,69 +93,163 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult HangSanXuat()
         {
-            var kieu = data.KIEUSANPHAMs.ToList();
-            return View(kieu);
+           
+            HangSanXuatVM model = new HangSanXuatVM();
+            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.LOAISANPHAMs
+                                                              select p).ToList(), "IdLOAISP", "TENLOAISP", model.IdLOAISP);
+            if(ViewBag.IdLoaiSP == null)
+            {
+                var sectionlist = (from p in data.HangSXes
+
+                                   select new SectionList
+                                   {
+                                       IdKIEUSP = p.IdHangSX,
+                                       TENKIEUSANPHAM = p.TenHangSX,
+                                       TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
+                                   }).ToList();
+                model.SectionList = sectionlist;
+            }   
+            else
+            {
+                var sectionlist = (from p in data.HangSXes
+                                   where p.IdLOAISP == model.IdLOAISP
+                                   select new SectionList
+                                   {
+                                       IdKIEUSP = p.IdHangSX,
+                                       TENKIEUSANPHAM = p.TenHangSX,
+                                       TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
+                                   }).ToList();
+                model.SectionList = sectionlist;
+            }              
+           
+            
+            return View(model);
         }
         [HttpGet]
         public ActionResult ThemKieuSP()
         {
-            return View();
+            HangSanXuatVM model = new HangSanXuatVM();
+            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.LOAISANPHAMs
+                                                              select p).ToList(), "IdLOAISP", "TENLOAISP");
+            return View(model);
         }
         [HttpPost]
-        public ActionResult ThemKieuSP(KIEUSANPHAM kieu, FormCollection collection)
+        public ActionResult ThemKieuSP(HangSanXuatVM model)
         {
-            var ten = collection["TENKIEULOAISP"];
-            if (String.IsNullOrEmpty(ten))
-                ViewData["Loi1"] = "Tên kiểu sản phẩm không được để trống";
-            else
+            if (ModelState.IsValid)
             {
-                kieu.TENKIEUSANPHAM = ten;
-                data.KIEUSANPHAMs.InsertOnSubmit(kieu);
+                HangSX kieu = new HangSX();
+                kieu.TenHangSX = model.TENKIEUSANPHAM;
+                kieu.IdLOAISP = model.IdLOAISP;
+                data.HangSXes.InsertOnSubmit(kieu);
                 data.SubmitChanges();
-                return RedirectToAction("KieuSP");
             }
-            return View();
+
+            return RedirectToAction("HangSanXuat");
         }
         public ActionResult SuaKieuSP(int id)
         {
-            var sk = data.KIEUSANPHAMs.First(n => n.IdKIEUSP == id);
-            if (sk == null)
+            HangSanXuatVM model = new HangSanXuatVM();
+            var timkieu = data.HangSXes.First(n => n.IdHangSX == id);            
+            model.IdKIEUSP = timkieu.IdHangSX;
+            model.TENKIEUSANPHAM = timkieu.TenHangSX;
+            model.IdLOAISP = timkieu.IdLOAISP;
+            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.LOAISANPHAMs
+                                                              select p).ToList(), "IdLOAISP", "TENLOAISP", model.IdLOAISP);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SuaKieuSP(HangSanXuatVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var kieu = data.HangSXes.First(n => n.IdHangSX == model.IdKIEUSP);            
+                kieu.TenHangSX = model.TENKIEUSANPHAM;
+                kieu.IdLOAISP = model.IdLOAISP;
+                UpdateModel(kieu);
+                data.SubmitChanges();
+            }
+            return RedirectToAction("HangSanXuat");
+        }
+        public ActionResult XoaKieuSP(int id)
+        {
+            HangSX xk = data.HangSXes.SingleOrDefault(n => n.IdHangSX == id);
+            if (xk == null)
             {
                 Response.SubStatusCode = 404;
                 return null;
             }
-            return View(sk);
-        }
-        [HttpPost]
-        public ActionResult SuaKieuSP(int id, FormCollection collection)
-        {
-            var kieu = data.KIEUSANPHAMs.First(n => n.IdKIEUSP == id);
-            var ten = collection["TENKIEULOAISP"];
-            var kt = data.KIEUSANPHAMs.ToList();
-            foreach (var item in kt)
-            {
-                if (String.Compare(item.TENKIEUSANPHAM, ten, true) == 0 && item.IdKIEUSP != id)
-                {
-                    ViewData["Loi0"] = "Mã kiểu sản phẩm này đã tồn tại";
-                    return this.SuaKieuSP(id);
-                }
-            }
-            if (String.IsNullOrEmpty(ten))
-            {
-                ViewData["Loi1"] = "Tên kiểu sản phẩm không được để trống";
-            }
-            else
-            {
-                kieu.TENKIEUSANPHAM = ten;
-                UpdateModel(kieu);
-                data.SubmitChanges();
-                return RedirectToAction("KieuSP");
-            }
-            return this.SuaKieuSP(id);
+            data.HangSXes.DeleteOnSubmit(xk);
+            data.SubmitChanges();
+            return RedirectToAction("HangSanXuat");
         }
         public ActionResult MatHang()
         {
+            var sp = data.SANPHAMs.ToList();
             return View();
+        }
+        public ActionResult ThemSP()
+        {
+            SPVM model = new SPVM();
+            ViewBag.IdKIEUSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
+                                                              select p).ToList(), "IdKIEUSP", "TENKIEUSANPHAM");
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ThemSP(SPVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                SANPHAM sp = new SANPHAM();
+                sp.TENSANPHAM = model.TENSANPHAM;
+                sp.MOTA = model.MOTA;
+                sp.DONGIA = model.DONGIA;
+                sp.ROM = model.ROM;
+                sp.RAM = model.RAM;
+                sp.ANHBIA = model.ANHBIA;
+                sp.IdSANPHAM = model.IdSP;
+                data.SANPHAMs.InsertOnSubmit(sp);
+                data.SubmitChanges();
+            }
+
+            return RedirectToAction("MatHang");
+        }
+        public ActionResult SuaSP(int id)
+        {
+            SPVM model = new SPVM();
+            var timsp = data.SANPHAMs.First(n => n.IdSANPHAM == id);
+            model.IdSP = timsp.IdSANPHAM;
+            model.TENSANPHAM = timsp.TENSANPHAM;
+            model.IdKIEUSP = timsp.IdHangSX;
+            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
+                                                              select p).ToList(), "IdKIEUSP", "TENKIEUSANPHAM", model.IdKIEUSP);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SuaSP(SPVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var sp = data.SANPHAMs.First(n => n.IdSANPHAM == model.IdKIEUSP);
+                sp.TENSANPHAM = model.TENSANPHAM;
+                sp.IdHangSX = model.IdKIEUSP;
+                UpdateModel(sp);
+                data.SubmitChanges();
+            }
+
+            return RedirectToAction("MatHang");
+        }
+        public ActionResult XoaSP(int id)
+        {
+            SANPHAM xs = data.SANPHAMs.SingleOrDefault(n => n.IdSANPHAM == id);
+            if (xs == null)
+            {
+                Response.SubStatusCode = 404;
+                return null;
+            }
+            data.SANPHAMs.DeleteOnSubmit(xs);
+            data.SubmitChanges();
+            return RedirectToAction("MatHang");
         }
         public ActionResult KhachHang()
         {
