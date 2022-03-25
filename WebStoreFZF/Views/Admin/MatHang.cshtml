@@ -31,14 +31,14 @@
                     <table class="table-responsive w-full rounded">
                         <thead>
                             <tr>
-                                <th class="border w-1/4 px-4 py-2">Mã sản phẩm</th>
+                                <th class="border w-1/6 px-4 py-2">Mã sản phẩm</th>
                                 <th class="border w-1/6 px-4 py-2">Tên sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Mô tả sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Đơn giá sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">ROM sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">RAM sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Ảnh bìa sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Tên hãng sản xuất</th>
+                                <th class="border w-1/6 px-4 py-2">Mô tả</th>
+                                <th class="border w-1/6 px-4 py-2">Đơn giá</th>
+                                <th class="border w-1/8 px-4 py-2">ROM </th>
+                                <th class="border w-1/8 px-4 py-2">RAM </th>
+                                <th class="border w-1/8 px-4 py-2">ẢNH BÌA </th>
+                                <th class="border w-1/5 px-4 py-2">Tên hãng sản xuất</th>
                                 <th class="border w-1/5 px-4 py-2">Actions</th>
                             </tr>
                         </thead>
@@ -46,18 +46,19 @@
                         {
                             <tbody>
                                 <tr>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].IdSP)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].IdSANPHAM)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].TENSANPHAM)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].MOTA)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].DONGIA)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ROM)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].RAM)</td>
                                     <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ANHBIA)</td>
+                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].TENKIEUSANPHAM)</td>
                                     <td class="border px-4 py-2">
-                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white" href="@Url.Action("SuaSP", new { id = Model.SectionList1[i].IdSP})">
+                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white" href="@Url.Action("SuaSP", new { id = Model.SectionList1[i].IdSANPHAM})">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500" onclick="return ConfirmXoa()" href="@Url.Action("XoaSP", new { id = Model.SectionList1[i].IdSP })">
+                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500" onclick="return ConfirmXoa()" href="@Url.Action("XoaSP", new { id = Model.SectionList1[i].IdSANPHAM })">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

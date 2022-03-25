@@ -471,3 +471,7 @@ C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\obj\Debug\We
 C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.csproj.CopyComplete
 C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.dll
 C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.pdb
+C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\bin\PagedList.dll
+C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\bin\PagedList.Mvc.dll
+C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\bin\PagedList.xml
+C:\Users\HP\OneDrive\Máy tính\webstore\Do_An_WebStore\WebStoreFZF\bin\PagedList.Mvc.xml

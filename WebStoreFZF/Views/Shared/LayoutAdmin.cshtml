@@ -110,6 +110,10 @@
 
     </div>
     <script src="~/main.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
 </body>
 
 </html>

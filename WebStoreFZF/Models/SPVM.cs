@@ -10,12 +10,12 @@ namespace WebStoreFZF.Models
     {
         [Required(ErrorMessage = "Chọn kiểu sản phẩm ")]
         public int? IdKIEUSP { get; set; }
-        public int IdSP { get; set; }
+        public int IdSANPHAM { get; set; }
         public string TENSANPHAM { get; set; }
         public string MOTA { get; set; }
-        public int DONGIA { get; set; }
-        public int ROM { get; set; }
-        public int RAM { get; set; }
+        public double DONGIA { get; set; }
+        public int? ROM { get; set; }
+        public int? RAM { get; set; }
         public string ANHBIA { get; set; }
         public List<SectionList1> SectionList1 { get; set; }
     }
@@ -24,11 +24,11 @@ namespace WebStoreFZF.Models
         public string TENKIEUSANPHAM { get; set; }
         public string TENSANPHAM { get; set; }
         public int? IdKIEUSP { get; set; }
-        public int IdSP { get; set; }
+        public int IdSANPHAM { get; set; }
         public string MOTA { get; set; }
-        public int DONGIA { get; set; }
-        public int ROM { get; set; }
-        public int RAM { get; set; }
+        public double DONGIA { get; set; }
+        public int? ROM { get; set; }
+        public int? RAM { get; set; }
         public string ANHBIA { get; set; }
 
 

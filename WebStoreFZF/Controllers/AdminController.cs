@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,10 +17,15 @@ namespace WebStoreFZF.Controllers
             return View();
         }
 
-        public ActionResult LoaiThietBi()
+        public ActionResult LoaiThietBi(int ? page)
         {
-            var loai = data.LOAISANPHAMs.ToList();
-            return View(loai);
+           
+            //Phân Trang
+            if (page == null) page = 1;
+            var all_loai = (from s in data.LOAISANPHAMs select s).OrderBy(m => m.IdLOAISP);
+            int pageSize = 10;
+            int pageNum = page ?? 1;
+            return View(all_loai.ToPagedList(pageNum, pageSize));
         }
         [HttpGet]
         public ActionResult ThemLoaithietbi()
@@ -75,7 +81,7 @@ namespace WebStoreFZF.Controllers
                 loai.TENLOAISP = ten;
                 UpdateModel(loai);
                 data.SubmitChanges();
-                return RedirectToAction("LoaiSP");
+                return RedirectToAction("LoaiThietBi");
             }
             return this.SuaLoaithietbi(id);
         }
@@ -93,36 +99,22 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult HangSanXuat()
         {
-           
+
             HangSanXuatVM model = new HangSanXuatVM();
             ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.LOAISANPHAMs
                                                               select p).ToList(), "IdLOAISP", "TENLOAISP", model.IdLOAISP);
-            if(ViewBag.IdLoaiSP == null)
-            {
-                var sectionlist = (from p in data.HangSXes
+            var sectionlist = (from p in data.HangSXes
 
-                                   select new SectionList
-                                   {
-                                       IdKIEUSP = p.IdHangSX,
-                                       TENKIEUSANPHAM = p.TenHangSX,
-                                       TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
-                                   }).ToList();
-                model.SectionList = sectionlist;
-            }   
-            else
-            {
-                var sectionlist = (from p in data.HangSXes
-                                   where p.IdLOAISP == model.IdLOAISP
-                                   select new SectionList
-                                   {
-                                       IdKIEUSP = p.IdHangSX,
-                                       TENKIEUSANPHAM = p.TenHangSX,
-                                       TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
-                                   }).ToList();
-                model.SectionList = sectionlist;
-            }              
-           
-            
+                               select new SectionList
+                               {
+                                   IdKIEUSP = p.IdHangSX,
+                                   TENKIEUSANPHAM = p.TenHangSX,
+                                   TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
+                               }).ToList();
+            model.SectionList = sectionlist;
+
+
+
             return View(model);
         }
         [HttpGet]
@@ -150,7 +142,7 @@ namespace WebStoreFZF.Controllers
         public ActionResult SuaKieuSP(int id)
         {
             HangSanXuatVM model = new HangSanXuatVM();
-            var timkieu = data.HangSXes.First(n => n.IdHangSX == id);            
+            var timkieu = data.HangSXes.First(n => n.IdHangSX == id);
             model.IdKIEUSP = timkieu.IdHangSX;
             model.TENKIEUSANPHAM = timkieu.TenHangSX;
             model.IdLOAISP = timkieu.IdLOAISP;
@@ -163,7 +155,7 @@ namespace WebStoreFZF.Controllers
         {
             if (ModelState.IsValid)
             {
-                var kieu = data.HangSXes.First(n => n.IdHangSX == model.IdKIEUSP);            
+                var kieu = data.HangSXes.First(n => n.IdHangSX == model.IdKIEUSP);
                 kieu.TenHangSX = model.TENKIEUSANPHAM;
                 kieu.IdLOAISP = model.IdLOAISP;
                 UpdateModel(kieu);
@@ -185,14 +177,34 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult MatHang()
         {
-            var sp = data.SANPHAMs.ToList();
-            return View();
+            SPVM model = new SPVM();
+            ViewBag.IdKieuSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
+                                                              select p).ToList(), "IdHangSX", "TenHangSX");
+
+
+            var sectionlist = (from p in data.SANPHAMs
+
+                               select new SectionList1
+                               {
+                                   IdSANPHAM = p.IdSANPHAM,
+                                   TENSANPHAM = p.TENSANPHAM,
+                                   MOTA = p.MOTA,
+                                   DONGIA = p.DONGIA,
+                                   ROM = p.ROM,
+                                   RAM = p.RAM,
+                                   ANHBIA = p.ANHBIA,
+                                   TENKIEUSANPHAM = p.HangSX.TenHangSX
+                               }).ToList();
+            model.SectionList1 = sectionlist;
+
+
+            return View(model);
         }
         public ActionResult ThemSP()
         {
             SPVM model = new SPVM();
-            ViewBag.IdKIEUSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
-                                                              select p).ToList(), "IdKIEUSP", "TENKIEUSANPHAM");
+            ViewBag.IdKieuSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
+                                                              select p).ToList(), "IdHangSX", "TenHangSX");
             return View(model);
         }
         [HttpPost]
@@ -207,22 +219,26 @@ namespace WebStoreFZF.Controllers
                 sp.ROM = model.ROM;
                 sp.RAM = model.RAM;
                 sp.ANHBIA = model.ANHBIA;
-                sp.IdSANPHAM = model.IdSP;
+                sp.IdHangSX = model.IdKIEUSP;
                 data.SANPHAMs.InsertOnSubmit(sp);
                 data.SubmitChanges();
             }
-
             return RedirectToAction("MatHang");
         }
         public ActionResult SuaSP(int id)
         {
             SPVM model = new SPVM();
             var timsp = data.SANPHAMs.First(n => n.IdSANPHAM == id);
-            model.IdSP = timsp.IdSANPHAM;
+            model.IdSANPHAM = timsp.IdSANPHAM;
             model.TENSANPHAM = timsp.TENSANPHAM;
+            model.MOTA = timsp.MOTA;
+            model.DONGIA = timsp.DONGIA;
+            model.ROM = timsp.ROM;
+            model.RAM = timsp.RAM;
+            model.ANHBIA = timsp.ANHBIA;
             model.IdKIEUSP = timsp.IdHangSX;
-            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
-                                                              select p).ToList(), "IdKIEUSP", "TENKIEUSANPHAM", model.IdKIEUSP);
+            ViewBag.IdKieuSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
+                                                              select p).ToList(), "IdHangSX", "TenHangSX", model.IdKIEUSP);
             return View(model);
         }
         [HttpPost]
@@ -230,8 +246,13 @@ namespace WebStoreFZF.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sp = data.SANPHAMs.First(n => n.IdSANPHAM == model.IdKIEUSP);
+                var sp = data.SANPHAMs.First(n => n.IdSANPHAM == model.IdSANPHAM);
                 sp.TENSANPHAM = model.TENSANPHAM;
+                sp.MOTA = model.MOTA;
+                sp.DONGIA = model.DONGIA;
+                sp.ROM = model.ROM;
+                sp.RAM = model.RAM;
+                sp.ANHBIA = model.ANHBIA;
                 sp.IdHangSX = model.IdKIEUSP;
                 UpdateModel(sp);
                 data.SubmitChanges();
@@ -255,5 +276,15 @@ namespace WebStoreFZF.Controllers
         {
             return View();
         }
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Content/image/" + file.FileName));
+            return "/Content/image/" + file.FileName;
+        }
+
     }
 }
