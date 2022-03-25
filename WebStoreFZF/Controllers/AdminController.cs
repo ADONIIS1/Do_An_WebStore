@@ -97,7 +97,7 @@ namespace WebStoreFZF.Controllers
             data.SubmitChanges();
             return RedirectToAction("LoaiThietBi");
         }
-        public ActionResult HangSanXuat()
+        public ActionResult HangSanXuat(int ? page)
         {
 
             HangSanXuatVM model = new HangSanXuatVM();
@@ -112,9 +112,11 @@ namespace WebStoreFZF.Controllers
                                    TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
                                }).ToList();
             model.SectionList = sectionlist;
-
-
-
+            if (page == null) page = 1;
+            var all_hang = (from s in data.LOAISANPHAMs select s).OrderBy(m => m.IdLOAISP);
+            int pageSize = 10;
+            int pageNum = page ?? 1;
+            return View(all_hang.ToPagedList(pageNum, pageSize));
             return View(model);
         }
         [HttpGet]
