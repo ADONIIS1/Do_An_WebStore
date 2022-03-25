@@ -550,3 +550,7 @@ D:\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.csproj.CoreCompileInputs.cac
 D:\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.csproj.CopyComplete
 D:\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.dll
 D:\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.pdb
+D:\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.dll
+D:\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.dll
+D:\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.xml
+D:\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.xml
