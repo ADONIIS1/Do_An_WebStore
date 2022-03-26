@@ -1,0 +1,71 @@
+﻿@model WebStoreFZF.Models.TaiKhoan
+
+@{ ViewBag.Title = "SuaKhachHang";
+                Layout = "~/Views/Shared/LayoutAdmin.cshtml"; }
+
+<main class="bg-white-500 flex-1 p-3 overflow-hidden ">
+    <h1 style="margin-left:420px">Sửa Quyền Khách Hàng</h1>
+    <div class="flex flex-col" style="margin-top:50px; margin-left:250px">
+        <!-- Card Sextion Starts Here -->
+        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2" style="width:500px">
+            <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+                    Thay đổi quyền
+                </div>
+                <div class="p-3">
+                    @using (Html.BeginForm())
+                    {
+        <form class="w-full">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="md:flex md:items-center mb-6">
+
+                <div class="md:w-1/6" style="margin: 20px 20px">
+                    <label class=" control-label col-md-2"
+                           for="inline-full-name">
+                        Quyền
+                    </label>
+                </div>
+                <div class="md:w-2/4 block" style="margin-top: 15px">
+                    <div>
+                        @Html.CheckBox("quyen", Model.Quyen)
+                    </div>
+                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                </div>
+
+            </div>
+
+            <div class="md:flex md:items-center">
+                <div class="md:w-1/3"></div>
+                <div class="md:w-2/3">
+                    <input class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default"
+                           type="submit" value="Edit">
+                </div>
+            </div>
+
+
+
+        </form>}
+                </div>
+            </div>
+
+        </div>
+        <!--/Grid Form-->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="md:flex md:items-center">
+                <div class="md:w-1/3">
+                    <a href="~/Admin/TaiKhoan">
+                        <input class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                               type="button" value="ComeBack Home">
+
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
