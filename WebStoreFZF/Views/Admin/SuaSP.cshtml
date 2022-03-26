@@ -1,4 +1,4 @@
-﻿@model WebStoreFZF.Models.SPVM
+@model WebStoreFZF.Models.SPVM
 
 @{
     ViewBag.Title = "SuaSP";
@@ -111,7 +111,8 @@
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })                                        @Html.ValidationMessageFor(model => model.ANHBIA, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })
+                                            @Html.ValidationMessageFor(model => model.ANHBIA, "", new { @class = "text-danger" })
                                             <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
                                                    style="display:none;" />
                                             <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
@@ -205,4 +206,3 @@
         </div>
     </div>
 </main>
-
