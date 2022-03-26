@@ -1,4 +1,4 @@
-﻿@model WebStoreFZF.Models.SPVM
+@model WebStoreFZF.Models.SPVM
 
 @{
     ViewBag.Title = "ThemSP";
@@ -107,7 +107,8 @@
                                 </div>
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })                                        @Html.ValidationMessageFor(model => model.ANHBIA, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })
+                                        @Html.ValidationMessageFor(model => model.ANHBIA, "", new { @class = "text-danger" })
                                         <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
                                                style="display:none;" />
                                         <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
@@ -117,36 +118,36 @@
                                 @section upload
 {
                                     <script>
-                                            $(function () {
-                                                $('#btnUpload').click(function () {
-                                                    $('#fileUpload').trigger('click');
-                                                });
+                                        $(function () {
+                                            $('#btnUpload').click(function () {
+                                                $('#fileUpload').trigger('click');
                                             });
-                                            $('#fileUpload').change(function () {
-                                                if (window.FormData !== undefined) {
-                                                    var fileUpload = $('#fileUpload').get(0);
-                                                    var files = fileUpload.files;
-                                                    var formData = new FormData();
-                                                    formData.append('file', files[0]);
+                                        });
+                                        $('#fileUpload').change(function () {
+                                            if (window.FormData !== undefined) {
+                                                var fileUpload = $('#fileUpload').get(0);
+                                                var files = fileUpload.files;
+                                                var formData = new FormData();
+                                                formData.append('file', files[0]);
 
-                                                    $.ajax(
-                                                        {
-                                                            type: 'POST',
-                                                            url: '/Admin/ProcessUpload',
-                                                            contentType: false,
-                                                            processData: false,
-                                                            data: formData,
-                                                            success: function (urlImage) {
+                                                $.ajax(
+                                                    {
+                                                        type: 'POST',
+                                                        url: '/Admin/ProcessUpload',
+                                                        contentType: false,
+                                                        processData: false,
+                                                        data: formData,
+                                                        success: function (urlImage) {
 
-                                                                $('#pictureUpload').attr('src', urlImage);
-                                                                $('#ANHBIA').val(urlImage);
-                                                            },
-                                                            error: function (err) {
-                                                                alert('Error ', err.statusText);
-                                                            }
-                                                        });
-                                                }
-                                            });
+                                                            $('#pictureUpload').attr('src', urlImage);
+                                                            $('#ANHBIA').val(urlImage);
+                                                        },
+                                                        error: function (err) {
+                                                            alert('Error ', err.statusText);
+                                                        }
+                                                    });
+                                            }
+                                        });
                                     </script>
                                 }
                             </div>
