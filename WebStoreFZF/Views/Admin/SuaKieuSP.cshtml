@@ -34,7 +34,7 @@
                                     <div>
                                         @Html.TextBoxFor(n => n.TENKIEUSANPHAM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập tên hãng sản xuất" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.TENKIEUSANPHAM)</p>
                                 </div>
 
                             </div>
@@ -48,9 +48,9 @@
                                 </div>
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
                                     <div>
-                                        @Html.DropDownList("IdLOAISP", null, htmlAttributes: new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500" })
+                                        @Html.DropDownList("IdLOAISP", null,"Chọn loại", htmlAttributes: new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.IdLOAISP)</p>
                                 </div>
 
                             </div>

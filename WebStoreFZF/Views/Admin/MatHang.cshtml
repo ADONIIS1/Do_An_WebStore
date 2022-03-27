@@ -1,75 +1,91 @@
-@model  WebStoreFZF.Models.SPVM
-@{
-    ViewBag.Title = "MatHang";
-    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
-}
+﻿@model  PagedList.IPagedList<WebStoreFZF.Models.SANPHAM>
+@using PagedList.Mvc;
+@{ ViewBag.Title = "HangSanXuat";
+                Layout = "~/Views/Shared/LayoutAdmin.cshtml"; }
 
 <main class="bg-white-500 flex-1 p-3 overflow-hidden">
     <div class="flex flex-col">
-        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
-            <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
-                <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
-                    Sản phẩm
-                </div>
-                <div class="d-flex md:items-center" style="margin-top: 10px ">
-                    <div class="md:w-2/3">
+        @using (Html.BeginForm())
+        {
+<div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+    <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+        <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b text-center font-bold">
+            Sản Phẩm
+        </div>
+        <div class="d-flex md:items-center" style="margin-top: 10px ">
+            <div class="md:w-2/3">
 
-                        <a href="~/Admin/ThemSP">
-                            <input class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default"
-                                   type="button" value="Create">
-                        </a>
+                <a href="~/Admin/ThemSP">
+                    <input class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default"
+                           type="button" value="Create">
+                </a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row" style="margin-left : 450px">
+                <div class="col-md-6" style="width : 200px">
+                    <div class="col-md-4" style="width : 500px">
+                        @Html.DropDownList("IdHangSX", null, "All Type", htmlAttributes: new { @class = "w-1/3 bg-Black-200  border border-red-500 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white-500" })
+                        <input class="shadow bg-primary hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default"
+                               type="submit" value="Search">
                     </div>
-                </div>
-                <div class="md:w-1/3" style="margin: 15px auto">
-                    <div class="md:w-2/4 block">
-                        <div>
-                            @Html.DropDownList("IdKIEUSP", null, "Chọn kiểu", htmlAttributes: new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500" })
-                        </div>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <table class="table-responsive w-full rounded">
-                        <thead>
-                            <tr>
-                                <th class="border w-1/6 px-4 py-2">Mã sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Tên sản phẩm</th>
-                                <th class="border w-1/6 px-4 py-2">Mô tả</th>
-                                <th class="border w-1/6 px-4 py-2">Đơn giá</th>
-                                <th class="border w-1/8 px-4 py-2">ROM </th>
-                                <th class="border w-1/8 px-4 py-2">RAM </th>
-                                <th class="border w-1/8 px-4 py-2">ẢNH BÌA </th>
-                                <th class="border w-1/5 px-4 py-2">Tên hãng sản xuất</th>
-                                <th class="border w-1/5 px-4 py-2">Actions</th>
-                            </tr>
-                        </thead>
-                        @for (int i = 0; i < Model.SectionList1.Count; i++)
-                        {
-                            <tbody>
-                                <tr>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].IdSANPHAM)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].TENSANPHAM)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].MOTA)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].DONGIA)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ROM)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].RAM)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].ANHBIA)</td>
-                                    <td class="border px-4 py-2">@Html.DisplayFor(modelItem => Model.SectionList1[i].TENKIEUSANPHAM)</td>
-                                    <td class="border px-4 py-2">
-                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white" href="@Url.Action("SuaSP", new { id = Model.SectionList1[i].IdSANPHAM})">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500" onclick="return ConfirmXoa()" href="@Url.Action("XoaSP", new { id = Model.SectionList1[i].IdSANPHAM })">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        }
-                    </table>
+
                 </div>
             </div>
         </div>
+        <div class="p-3">
+            <table class="table-responsive w-full rounded">
+                <thead>
+                    <tr>
+                        <th class="border w-1/6 px-4 py-2">Mã sản phẩm</th>
+                        <th class="border w-1/6 px-4 py-2">Tên sản phẩm</th>
+                        <th class="border w-1/6 px-4 py-2">Mô tả</th>
+                        <th class="border w-1/6 px-4 py-2">Đơn giá</th>
+                        <th class="border w-1/8 px-4 py-2">ROM </th>
+                        <th class="border w-1/8 px-4 py-2">RAM </th>
+                        <th class="border w-1/5 px-4 py-2">Tên hãng sản xuất</th>
+                        <th class="border w-1/5 px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+<tbody>
+    <tr>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.IdSANPHAM)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.TENSANPHAM)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.MOTA)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.DONGIA)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.ROM)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.RAM)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.HangSX.TenHangSX)</td>
+        <td class="border px-4 py-2">
+            <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-white" href="@Url.Action("SuaSP", new { id = item.IdSANPHAM})">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a class="bg-teal-300 cursor-pointer rounded p-1 mx-1 text-red-500" onclick="return ConfirmXoa()" href="@Url.Action("XoaSP", new { id = item.IdSANPHAM})">
+                <i class="fas fa-trash"></i>
+            </a>
+    </tr>
+</tbody>
+}
+            </table>
+        </div>
+    </div>
+</div>}
         <!--/Grid Form-->
+    </div>
+    <div>
+        <div>
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /
+            @Model.PageCount
+        </div>
+        <div class="MenuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("LoaiThietBi", new
+            {
+                page = page
+            }))
+        </div>
     </div>
 </main>
 

@@ -20,9 +20,9 @@ namespace WebStoreFZF.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="WebStoreFZF")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="WebStoreFZF")]
 	public partial class MyDataContextDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -665,6 +665,7 @@ namespace WebStoreFZF.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenHangSX", DbType="NVarChar(100)")]
+		
 		public string TenHangSX
 		{
 			get
@@ -1323,7 +1324,8 @@ namespace WebStoreFZF.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DONGIA", DbType="Float NOT NULL")]
-		public double DONGIA
+		[DisplayFormat(DataFormatString =("{0:0,00}"), ApplyFormatInEditMode =false)]
+		public double DONGIA 
 		{
 			get
 			{

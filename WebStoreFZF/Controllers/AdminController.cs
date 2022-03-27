@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebStoreFZF.Models;
+using System.Data.Entity;
 
 namespace WebStoreFZF.Controllers
 {
@@ -23,7 +24,7 @@ namespace WebStoreFZF.Controllers
             //Phân Trang
             if (page == null) page = 1;
             var all_loai = (from s in data.LOAISANPHAMs select s).OrderBy(m => m.IdLOAISP);
-            int pageSize = 10;
+            int pageSize = 2;
             int pageNum = page ?? 1;
             return View(all_loai.ToPagedList(pageNum, pageSize));
         }
@@ -63,15 +64,8 @@ namespace WebStoreFZF.Controllers
         {
             var loai = data.LOAISANPHAMs.First(n => n.IdLOAISP == id);
             var ten = collection["TENLOAISP"];
-            var kt = data.LOAISANPHAMs.ToList();
-            foreach (var item in kt)
-            {
-                if (String.Compare(item.TENLOAISP, ten, true) == 0 && item.IdLOAISP != id)
-                {
-                    ViewData["Loi0"] = "Mã loại sản phẩm này đã tồn tại";
-                    return this.SuaLoaithietbi(id);
-                }
-            }
+           
+            
             if (String.IsNullOrEmpty(ten))
             {
                 ViewData["Loi1"] = "Tên loại sản phẩm không được để trống";
@@ -97,27 +91,23 @@ namespace WebStoreFZF.Controllers
             data.SubmitChanges();
             return RedirectToAction("LoaiThietBi");
         }
-        public ActionResult HangSanXuat(int? page)
+        public ActionResult HangSanXuat(int? page, int? IdLOAISP)
         {
-
-            HangSanXuatVM model = new HangSanXuatVM();
-            ViewBag.IdLoaiSP = new System.Web.Mvc.SelectList((from p in data.LOAISANPHAMs
-                                                              select p).ToList(), "IdLOAISP", "TENLOAISP");
-            var sectionlist = (from p in data.HangSXes
-
-                               select new SectionList
-                               {
-                                   IdHangSX = p.IdHangSX,
-                                   TENKIEUSANPHAM = p.TenHangSX,
-                                   TENLOAISANPHAM = p.LOAISANPHAM.TENLOAISP
-                               }).ToList();
-            model.SectionList = sectionlist;
-           /* if (page == null) page = 1;
-            var all_hang = (from s in data.LOAISANPHAMs select s).OrderBy(m => m.IdLOAISP);
-            int pageSize = 10;
+            int pageSize = 2;
             int pageNum = page ?? 1;
-            return View(all_hang.ToPagedList(pageNum, pageSize));*/
-            return View(model);
+            ViewBag.IdLoaiSP = new SelectList((data.LOAISANPHAMs).ToList(), "IdLOAISP", "TENLOAISP");
+
+            if (IdLOAISP == null)
+            {
+                var loai = data.HangSXes.Include(m => m.LOAISANPHAM).OrderBy(m => m.IdLOAISP);
+                return View(loai.ToPagedList(pageNum, pageSize));
+            }
+            else
+            {
+                var loai = data.HangSXes.Include(m => m.LOAISANPHAM).Where(p => p.IdLOAISP == IdLOAISP).OrderBy(m => m.IdLOAISP).ToList();
+                return View(loai.ToPagedList(pageNum, pageSize));
+            }
+
         }
         [HttpGet]
         public ActionResult ThemKieuSP()
@@ -130,19 +120,21 @@ namespace WebStoreFZF.Controllers
         [HttpPost]
         public ActionResult ThemKieuSP(HangSanXuatVM model)
         {
-            if (ModelState.IsValid)
-            {
-                HangSX kieu = new HangSX();
-                kieu.TenHangSX = model.TENKIEUSANPHAM;
-                kieu.IdLOAISP = model.IdLOAISP;
-                data.HangSXes.InsertOnSubmit(kieu);
-                data.SubmitChanges();
+             if (ModelState.IsValid)
+             {
+                 HangSX kieu = new HangSX();
+                 kieu.TenHangSX = model.TENKIEUSANPHAM;
+                 kieu.IdLOAISP = model.IdLOAISP;
+                 data.HangSXes.InsertOnSubmit(kieu);
+                 data.SubmitChanges();
+                return RedirectToAction("HangSanXuat");
             }
-
-            return RedirectToAction("HangSanXuat");
+            return this.ThemKieuSP();
+             
+            
         }
         public ActionResult SuaKieuSP(int id)
-        {
+        {          
             HangSanXuatVM model = new HangSanXuatVM();
             var timkieu = data.HangSXes.First(n => n.IdHangSX == id);
             model.IdKIEUSP = timkieu.IdHangSX;
@@ -155,6 +147,8 @@ namespace WebStoreFZF.Controllers
         [HttpPost]
         public ActionResult SuaKieuSP(HangSanXuatVM model)
         {
+            
+
             if (ModelState.IsValid)
             {
                 var kieu = data.HangSXes.First(n => n.IdHangSX == model.IdKIEUSP);
@@ -162,8 +156,10 @@ namespace WebStoreFZF.Controllers
                 kieu.IdLOAISP = model.IdLOAISP;
                 UpdateModel(kieu);
                 data.SubmitChanges();
+                return RedirectToAction("HangSanXuat");
             }
-            return RedirectToAction("HangSanXuat");
+            return this.SuaKieuSP(model.IdKIEUSP);
+
         }
         public ActionResult XoaKieuSP(int id)
         {
@@ -177,30 +173,23 @@ namespace WebStoreFZF.Controllers
             data.SubmitChanges();
             return RedirectToAction("HangSanXuat");
         }
-        public ActionResult MatHang()
+        public ActionResult MatHang(int? page, int? IdHangSX)
         {
-            SPVM model = new SPVM();
-            ViewBag.IdKieuSP = new System.Web.Mvc.SelectList((from p in data.HangSXes
-                                                              select p).ToList(), "IdHangSX", "TenHangSX");
+            int pageSize = 2;
+            int pageNum = page ?? 1;
+            ViewBag.IdHangSX = new SelectList((data.HangSXes).ToList(), "IdHangSX", "TenHangSX");
 
+            if (IdHangSX == null)
+            {
+                var loai = data.SANPHAMs.Include(m => m.HangSX).OrderBy(m => m.IdHangSX).ToList();
+                return View(loai.ToPagedList(pageNum, pageSize));
+            }
+            else
+            {
+                var loai = data.SANPHAMs.Include(m => m.HangSX).Where(p => p.IdHangSX == IdHangSX).OrderBy(m => m.IdHangSX).ToList();
+                return View(loai.ToPagedList(pageNum, pageSize));
+            }
 
-            var sectionlist = (from p in data.SANPHAMs
-
-                               select new SectionList1
-                               {
-                                   IdSANPHAM = p.IdSANPHAM,
-                                   TENSANPHAM = p.TENSANPHAM,
-                                   MOTA = p.MOTA,
-                                   DONGIA = p.DONGIA,
-                                   ROM = p.ROM,
-                                   RAM = p.RAM,
-                                   ANHBIA = p.ANHBIA,
-                                   TENKIEUSANPHAM = p.HangSX.TenHangSX
-                               }).ToList();
-            model.SectionList1 = sectionlist;
-
-
-            return View(model);
         }
         public ActionResult ThemSP()
         {
@@ -224,8 +213,10 @@ namespace WebStoreFZF.Controllers
                 sp.IdHangSX = model.IdKIEUSP;
                 data.SANPHAMs.InsertOnSubmit(sp);
                 data.SubmitChanges();
+                return RedirectToAction("MatHang");
             }
-            return RedirectToAction("MatHang");
+            return this.ThemSP();
+            
         }
         public ActionResult SuaSP(int id)
         {
@@ -258,9 +249,10 @@ namespace WebStoreFZF.Controllers
                 sp.IdHangSX = model.IdKIEUSP;
                 UpdateModel(sp);
                 data.SubmitChanges();
+                return RedirectToAction("MatHang");
             }
-
-            return RedirectToAction("MatHang");
+            return this.SuaSP(model.IdSANPHAM);
+            
         }
         public ActionResult XoaSP(int id)
         {

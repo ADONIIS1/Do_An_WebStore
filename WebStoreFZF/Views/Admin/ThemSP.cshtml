@@ -1,4 +1,4 @@
-@model WebStoreFZF.Models.SPVM
+﻿@model WebStoreFZF.Models.SPVM
 
 @{
     ViewBag.Title = "ThemSP";
@@ -9,7 +9,7 @@
     <h1 style="margin-left:420px">Thêm Sản Phẩm</h1>
     <div class="flex flex-col" style="margin-top:50px; margin-left:250px">
         <!-- Card Sextion Starts Here -->
-        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2" style="width:500px">
+        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2" style="width:600px">
             <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                 <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
                     Sản Phẩm
@@ -34,7 +34,7 @@
                                     <div>
                                         @Html.TextBoxFor(n => n.TENSANPHAM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập tên sản phẩm" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.TENSANPHAM)</p>
                                 </div>
                             </div>
                             <div class="md:flex md:items-center mb-6">
@@ -49,7 +49,7 @@
                                     <div>
                                         @Html.TextBoxFor(n => n.MOTA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập mô tả sản phẩm" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.MOTA)</p>
                                 </div>
                             </div>
                             <div class="md:flex md:items-center mb-6">
@@ -64,7 +64,7 @@
                                     <div>
                                         @Html.TextBoxFor(n => n.DONGIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập đơn giá sản phẩm" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.DONGIA)</p>
                                 </div>
                             </div>
                             <div class="md:flex md:items-center mb-6">
@@ -77,9 +77,9 @@
                                 </div>
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
                                     <div>
-                                        @Html.TextBoxFor(n => n.ROM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập rom sản phẩm" })
+                                        @Html.TextBoxFor(n => n.ROM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập ROM sản phẩm" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.ROM)</p>
                                 </div>
                             </div>
                             <div class="md:flex md:items-center mb-6">
@@ -92,64 +92,73 @@
                                 </div>
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
                                     <div>
-                                        @Html.TextBoxFor(n => n.RAM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập ram sản phẩm" })
+                                        @Html.TextBoxFor(n => n.RAM, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi1"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.RAM)</p>
                                 </div>
                             </div>
-                            <div class="md:flex md:items-center mb-6">
+                            <div class="lg:flex lg:items-center mb-12">
 
                                 <div class="md:w-1/6" style="margin: 20px 20px">
                                     <label class=" control-label col-md-2"
                                            for="inline-full-name">
-                                        Ảnh Bìa sản phẩm
+                                        Ảnh Bìa
                                     </label>
                                 </div>
                                 <div class="md:w-2/4 block" style="margin-top: 15px">
-                                    <div class="col-md-10">
-                                        @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Nhập RAM sản phẩm" })
-                                        @Html.ValidationMessageFor(model => model.ANHBIA, "", new { @class = "text-danger" })
-                                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
-                                               style="display:none;" />
-                                        <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
-                                        <img src="@Model.ANHBIA" id="pictureUpload" />
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(n => n.ANHBIA, new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", placeholder = "Chọn ảnh bìa sản phẩm" })
+                                            
+                                            <input type="button" id="btnUpload" value="Chọn" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded btn btn-default" />
+                                        </div>
+                                        <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.ANHBIA)</p>
+
                                     </div>
-                                </div>
-                                @section upload
+
+                                    @section upload
 {
-                                    <script>
-                                        $(function () {
-                                            $('#btnUpload').click(function () {
-                                                $('#fileUpload').trigger('click');
+                                        <script>
+                                            $(function () {
+                                                $('#btnUpload').click(function () {
+                                                    $('#fileUpload').trigger('click');
+                                                });
                                             });
-                                        });
-                                        $('#fileUpload').change(function () {
-                                            if (window.FormData !== undefined) {
-                                                var fileUpload = $('#fileUpload').get(0);
-                                                var files = fileUpload.files;
-                                                var formData = new FormData();
-                                                formData.append('file', files[0]);
+                                            $('#fileUpload').change(function () {
+                                                if (window.FormData !== undefined) {
+                                                    var fileUpload = $('#fileUpload').get(0);
+                                                    var files = fileUpload.files;
+                                                    var formData = new FormData();
+                                                    formData.append('file', files[0]);
 
-                                                $.ajax(
-                                                    {
-                                                        type: 'POST',
-                                                        url: '/Admin/ProcessUpload',
-                                                        contentType: false,
-                                                        processData: false,
-                                                        data: formData,
-                                                        success: function (urlImage) {
+                                                    $.ajax(
+                                                        {
+                                                            type: 'POST',
+                                                            url: '/Admin/ProcessUpload',
+                                                            contentType: false,
+                                                            processData: false,
+                                                            data: formData,
+                                                            success: function (urlImage) {
 
-                                                            $('#pictureUpload').attr('src', urlImage);
-                                                            $('#ANHBIA').val(urlImage);
-                                                        },
-                                                        error: function (err) {
-                                                            alert('Error ', err.statusText);
-                                                        }
-                                                    });
-                                            }
-                                        });
-                                    </script>
-                                }
+                                                                $('#pictureUpload').attr('src', urlImage);
+                                                                $('#ANHBIA').val(urlImage);
+                                                            },
+                                                            error: function (err) {
+                                                                alert('Error ', err.statusText);
+                                                            }
+                                                        });
+                                                }
+                                            });
+                                        </script>
+                                    }
+                                </div>
+                                <div style="width: 150px; height: 60px; margin: 0 0 0 7px">
+                                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
+                                           style="display:none;" />
+
+                                    <img src="@Model.ANHBIA" id="pictureUpload" />
+                                </div>
+
                             </div>
                             <div class="md:flex md:items-center mb-6">
 
@@ -163,7 +172,7 @@
                                     <div>
                                         @Html.DropDownList("IdKIEUSP", null, "Chọn kiểu", htmlAttributes: new { @class = "appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500" })
                                     </div>
-                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@ViewData["Loi2"]</p>
+                                    <p class="text-red-500 text-xs italic" style="margin-top:0px">@Html.ValidationMessageFor(model => model.IdKIEUSP)</p>
                                 </div>
                             </div>
 
