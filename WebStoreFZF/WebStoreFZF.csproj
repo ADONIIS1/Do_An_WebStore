@@ -184,12 +184,6 @@
     <Content Include="css\plyr.css" />
     <Content Include="css\slicknav.min.css" />
     <Content Include="css\style.css" />
-    <Content Include="dist\all.css" />
-    <Content Include="dist\images\dashboard.png" />
-    <Content Include="dist\images\login-new.jpeg" />
-    <Content Include="dist\images\login.jpeg" />
-    <Content Include="dist\images\login.png" />
-    <Content Include="dist\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

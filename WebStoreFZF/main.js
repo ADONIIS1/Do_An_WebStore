@@ -17,7 +17,12 @@ function profileToggle() {
         profileDropdown.style.display = "none";
     }
 }
-
+$(document).ready(function () {
+    $('.admin_content').on('click', function (event) {
+        event.preventDefault();
+        $(this).closest('.header_dropdown').find('.account_dropdown').toggle();
+    });
+});
 
 /**
  * ### Modals ###
@@ -51,3 +56,4 @@ if (document.querySelector('.modal-wrapper'))
         toggleModal('remove', btn);
     });
 }
+
