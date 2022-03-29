@@ -135,11 +135,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\HangSanXuatVM.cs" />
     <Compile Include="Models\MyDataContext.designer.cs">
       <AutoGen>True</AutoGen>
@@ -317,8 +319,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Products\AllProducts.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Shared\LayoutAdmin.cshtml" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="webfonts\fa-brands-400.ttf" />
@@ -344,6 +344,19 @@
     <Content Include="Views\Admin\MatHang.cshtml" />
     <Content Include="Views\Admin\ThemSP.cshtml" />
     <Content Include="Views\Admin\SuaSP.cshtml" />
+    <Content Include="Views\Products\Phone.cshtml" />
+    <Content Include="Views\Products\Laptop.cshtml" />
+    <Content Include="Views\Products\ThongTin_DatMua.cshtml" />
+    <Content Include="Views\Products\AllProducts.cshtml" />
+    <Content Include="Views\GioHang\GioHang.cshtml" />
+    <Content Include="Views\GioHang\GioHangPartial.cshtml" />
+    <Content Include="Views\Products\Phone_SamSung.cshtml" />
+    <Content Include="Views\Products\Phone_Oppo.cshtml" />
+    <Content Include="Views\Products\Phone_ViVo.cshtml" />
+    <Content Include="Views\Products\Phone_Xiaomi.cshtml" />
+    <Content Include="Views\Products\Phone_Nokia.cshtml" />
+    <Content Include="Views\Products\Laptop_Asus.cshtml" />
+    <Content Include="Views\Products\Laptop_Lenovo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

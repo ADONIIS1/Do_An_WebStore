@@ -1,0 +1,63 @@
+﻿@model WebStoreFZF.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="anime-details spad">
+    <div class="container">
+        <div class="anime__details__content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="anime__details__pic set-bg" data-setbg="">
+                        <img src="@Model.ANHBIA" alt"" />
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="anime__details__text">
+                        <div class="anime__details__title">
+                            <h3>@Html.DisplayFor(model => model.TENSANPHAM)</h3>
+                            @*<span>フェイト／ステイナイト, Feito／sutei naito</span>*@
+                        </div>
+                        <div class="anime__details__rating">
+                            <div class="rating">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                            @*<span>1.029 Votes</span>*@
+                        </div>
+                        <p>
+                            @Html.DisplayFor(model => model.MOTA)
+                        </p>
+                        <div class="anime__details__widget">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <ul>
+                                        <li><span>Rom:</span> @Html.DisplayFor(model => model.ROM)</li>
+                                        <li><span>Ram:</span> @Html.DisplayFor(model => model.RAM)</li>
+                                        <li><span>Giá:</span> @Html.DisplayFor(model => model.DONGIA)</li>
+                                        <li><span>Hãng SX</span>@Html.DisplayFor(model => model.HangSX.TenHangSX)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="anime__details__btn">
+                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                <a href="#" class="watch-btn">
+                                    <span>Watch Now</span> <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>*@
+                        <div class="DatMua">
+                            <a class="btn btn-success" href="@Url.Action("ThemGioHang", "GioHang",
+                                new { @id = Model.IdSANPHAM, @strURL = Request.Url.ToString() })">Đặt mua</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

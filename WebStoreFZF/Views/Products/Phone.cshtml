@@ -1,0 +1,109 @@
+﻿@model PagedList.IPagedList<WebStoreFZF.Models.SANPHAM>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Phone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="product spad">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="trending__product">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>Trending Now</h4>
+                            </div>
+                            <div class="row" style="width:1100px; margin-left:30px">
+                                @foreach (var item in Model)
+                                {
+                                <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
+                                    <div class="col lg-7" style="margin:15px 0">
+                                        <div class="card" style="width:200px">
+                                            <!-- Sale badge-->
+                                            <div class="badge bg-dark text-white position-absolute">Trả góp 0%</div>
+                                            <!-- Product image-->
+                                            <div style="margin :40px 10px 0px 10px">
+                                                <img class="card-img-top" src="@item.ANHBIA" alt="ip13promax" />
+                                            </div>
+                                            <!-- Product details-->
+                                            <div class="card-body p-4" style="background-color:black">
+                                                <div class="text-center">
+                                                    <!-- Product name-->
+                                                    <h5 class="fw-bolder bg-gray-700" style="font-weight:bold; color:dodgerblue">@item.TENSANPHAM</h5>
+                                                    <!-- Product price-->
+                                                    <div class="font-bold text-warning">@item.DONGIA VND</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /
+        @Model.PageCount
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Phone", new
+        {
+            page = page
+        }))
+    </div>
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+        $(document).ready(function () {
+            var maxLength = 100;
+            $(".show-read-more").each(function () {
+                var myStr = $(this).text();
+                if ($.trim(myStr).length > maxLength) {
+                    var newStr = myStr.substring(0, maxLength);
+                    var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                    $(this).empty().html(newStr);
+
+                    $(this).append(' <a href="javascript:void(0);" class="read-more">đọc tiếp...</a>');
+
+                    $(this).append('<span class="more-text">' + removedStr +
+                        '</span>');
+                }
+            });
+            $(".read-more").click(function () {
+                $(this).siblings(".more-text").contents().unwrap();
+                $(this).remove();
+            });
+        });
+</script>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

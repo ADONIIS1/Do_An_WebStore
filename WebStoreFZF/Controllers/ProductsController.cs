@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,31 +12,300 @@ namespace WebStoreFZF.Controllers
     {
         MyDataContextDataContext data = new MyDataContextDataContext();
         // GET: Products
-        // GET: Laptop
 
         public ActionResult AllProducts()
         {
-            var all_products = from p in data.SANPHAMs select p;
+            var all_products = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 1).ToList();
             return View(all_products);
         }
 
-        public ActionResult Laptop()
+        public ActionResult Laptop(int? page)
         {
-            var all_laptop = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 2).ToList();
-            return View(all_laptop);
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
         }
 
-        public ActionResult Phone()
+
+        public ActionResult Phone(int? page)
         {
+            //var all_phone = data.SANPHAMs.Where(s => s.IdKIEUSP == 1).ToList();
+            //return View(all_phone);
+            if (page == null) page = 1;
             var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 1).ToList();
-            return View(all_phone);
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
         }
 
-        public ActionResult Accessory()
+        public ActionResult Accessory(int? page)
         {
-            var all_accessory = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
-            return View(all_accessory);
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
         }
+
+        public ActionResult Phone_IPhone(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_SamSung(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_Oppo(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_ViVo(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_Xiaomi(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_Realme(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_Nokia(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Phone_Mobell(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+        public ActionResult Phone_Massel(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Macbook(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Asus(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_hp(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Lenovo(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Acer(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Dell(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Msi(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_Lg(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Laptop_intel(int? page)
+        {
+            //var all_laptop = data.SANPHAMs.Where(s => s.IdKIEUSP == 2).ToList();
+            //return View(all_laptop);
+            if (page == null) page = 1;
+            var all_Laptop = data.SANPHAMs.Where(s => s.IdHangSX == 1).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_Laptop.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Accessory_Apple(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Accessory_Xiaomi(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Accessory_SamSung(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Accessory_Lg(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+        public ActionResult Accessory_Asus(int? page)
+        {
+            //var all_accessory = data.SANPHAMs.Where(s => s.IdKIEUSP == 3).ToList();
+            //return View(all_accessory);
+            if (page == null) page = 1;
+            var all_phone = data.SANPHAMs.Where(s => s.HangSX.IdLOAISP == 3).ToList();
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            return View(all_phone.ToPagedList(pageNum, pageSize));
+        }
+
+
 
         public ActionResult Create()
         {
@@ -61,7 +331,7 @@ namespace WebStoreFZF.Controllers
                 s.TENSANPHAM = TenSanPham.ToString();
                 s.MOTA = Mota.ToString();
                 s.DONGIA = DonGia;
-              
+
                 s.ROM = Rom;
                 s.RAM = Ram;
                 s.ANHBIA = Anh;
@@ -100,7 +370,7 @@ namespace WebStoreFZF.Controllers
                 TenSanPham = sanPham.TENSANPHAM;
                 Mota = sanPham.MOTA;
                 DonGia = (double)sanPham.DONGIA;
-                
+
                 Rom = (int)sanPham.ROM;
                 Ram = (int)sanPham.RAM;
                 Anh = sanPham.ANHBIA;
@@ -110,6 +380,12 @@ namespace WebStoreFZF.Controllers
                 return RedirectToAction("AllProducts");
             }
             return this.Edit(id);
+        }
+
+        public ActionResult ThongTin_DatMua(int id)
+        {
+            var D_SanPham = data.SANPHAMs.Where(m => m.IdSANPHAM == id).First();
+            return View(D_SanPham);
         }
 
 

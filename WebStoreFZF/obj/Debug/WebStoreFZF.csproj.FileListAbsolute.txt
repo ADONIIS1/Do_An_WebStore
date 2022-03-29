@@ -882,3 +882,12 @@ C:\Users\HP\OneDrive\Máy tính\Web2\Do_An_WebStore\WebStoreFZF\bin\EntityFramew
 C:\Users\HP\OneDrive\Máy tính\Web2\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.dll
 C:\Users\HP\OneDrive\Máy tính\Web2\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.xml
 C:\Users\HP\OneDrive\Máy tính\Web2\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.xml
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.dll
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.dll
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\PagedList.dll
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\PagedList.Mvc.dll
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.xml
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\EntityFramework.SqlServer.xml
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\PagedList.xml
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\bin\PagedList.Mvc.xml
+C:\Users\ASUS\Desktop\FZF\Do_An_WebStore\WebStoreFZF\obj\Debug\WebStoreFZF.csproj.CopyComplete
