@@ -42,12 +42,6 @@ namespace WebStoreFZF.Models
     partial void InsertLOAISANPHAM(LOAISANPHAM instance);
     partial void UpdateLOAISANPHAM(LOAISANPHAM instance);
     partial void DeleteLOAISANPHAM(LOAISANPHAM instance);
-    partial void InsertPTThanhToan(PTThanhToan instance);
-    partial void UpdatePTThanhToan(PTThanhToan instance);
-    partial void DeletePTThanhToan(PTThanhToan instance);
-    partial void InsertResetPass(ResetPass instance);
-    partial void UpdateResetPass(ResetPass instance);
-    partial void DeleteResetPass(ResetPass instance);
     partial void InsertSANPHAM(SANPHAM instance);
     partial void UpdateSANPHAM(SANPHAM instance);
     partial void DeleteSANPHAM(SANPHAM instance);
@@ -57,6 +51,12 @@ namespace WebStoreFZF.Models
     partial void InsertTinhTrang(TinhTrang instance);
     partial void UpdateTinhTrang(TinhTrang instance);
     partial void DeleteTinhTrang(TinhTrang instance);
+    partial void InsertPTThanhToan(PTThanhToan instance);
+    partial void UpdatePTThanhToan(PTThanhToan instance);
+    partial void DeletePTThanhToan(PTThanhToan instance);
+    partial void InsertResetPass(ResetPass instance);
+    partial void UpdateResetPass(ResetPass instance);
+    partial void DeleteResetPass(ResetPass instance);
     #endregion
 		
 		public MyDataContextDataContext() : 
@@ -121,22 +121,6 @@ namespace WebStoreFZF.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<PTThanhToan> PTThanhToans
-		{
-			get
-			{
-				return this.GetTable<PTThanhToan>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ResetPass> ResetPasses
-		{
-			get
-			{
-				return this.GetTable<ResetPass>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SANPHAM> SANPHAMs
 		{
 			get
@@ -158,6 +142,22 @@ namespace WebStoreFZF.Models
 			get
 			{
 				return this.GetTable<TinhTrang>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PTThanhToan> PTThanhToans
+		{
+			get
+			{
+				return this.GetTable<PTThanhToan>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ResetPass> ResetPasses
+		{
+			get
+			{
+				return this.GetTable<ResetPass>();
 			}
 		}
 	}
@@ -416,9 +416,13 @@ namespace WebStoreFZF.Models
 		
 		private System.Nullable<int> _ID;
 		
+		private string _Mapt;
+		
 		private EntitySet<CTDONHANG> _CTDONHANGs;
 		
 		private EntityRef<TaiKhoan> _TaiKhoan;
+		
+		private EntityRef<PTThanhToan> _PTThanhToan;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -432,12 +436,15 @@ namespace WebStoreFZF.Models
     partial void OnTINHTRANGChanged();
     partial void OnIDChanging(System.Nullable<int> value);
     partial void OnIDChanged();
+    partial void OnMaptChanging(string value);
+    partial void OnMaptChanged();
     #endregion
 		
 		public DONHANG()
 		{
 			this._CTDONHANGs = new EntitySet<CTDONHANG>(new Action<CTDONHANG>(this.attach_CTDONHANGs), new Action<CTDONHANG>(this.detach_CTDONHANGs));
 			this._TaiKhoan = default(EntityRef<TaiKhoan>);
+			this._PTThanhToan = default(EntityRef<PTThanhToan>);
 			OnCreated();
 		}
 		
@@ -525,6 +532,30 @@ namespace WebStoreFZF.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mapt", DbType="VarChar(10)")]
+		public string Mapt
+		{
+			get
+			{
+				return this._Mapt;
+			}
+			set
+			{
+				if ((this._Mapt != value))
+				{
+					if (this._PTThanhToan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaptChanging(value);
+					this.SendPropertyChanging();
+					this._Mapt = value;
+					this.SendPropertyChanged("Mapt");
+					this.OnMaptChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DONHANG_CTDONHANG", Storage="_CTDONHANGs", ThisKey="IdDONHANG", OtherKey="IdDONHANG")]
 		public EntitySet<CTDONHANG> CTDONHANGs
 		{
@@ -568,6 +599,40 @@ namespace WebStoreFZF.Models
 						this._ID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("TaiKhoan");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PTThanhToan_DONHANG", Storage="_PTThanhToan", ThisKey="Mapt", OtherKey="maPT", IsForeignKey=true)]
+		public PTThanhToan PTThanhToan
+		{
+			get
+			{
+				return this._PTThanhToan.Entity;
+			}
+			set
+			{
+				PTThanhToan previousValue = this._PTThanhToan.Entity;
+				if (((previousValue != value) 
+							|| (this._PTThanhToan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PTThanhToan.Entity = null;
+						previousValue.DONHANGs.Remove(this);
+					}
+					this._PTThanhToan.Entity = value;
+					if ((value != null))
+					{
+						value.DONHANGs.Add(this);
+						this._Mapt = value.maPT;
+					}
+					else
+					{
+						this._Mapt = default(string);
+					}
+					this.SendPropertyChanged("PTThanhToan");
 				}
 			}
 		}
@@ -919,291 +984,6 @@ namespace WebStoreFZF.Models
 		{
 			this.SendPropertyChanging();
 			entity.LOAISANPHAM = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PTThanhToan")]
-	public partial class PTThanhToan : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _maPT;
-		
-		private string _tenPT;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnmaPTChanging(string value);
-    partial void OnmaPTChanged();
-    partial void OntenPTChanging(string value);
-    partial void OntenPTChanged();
-    #endregion
-		
-		public PTThanhToan()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_maPT", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string maPT
-		{
-			get
-			{
-				return this._maPT;
-			}
-			set
-			{
-				if ((this._maPT != value))
-				{
-					this.OnmaPTChanging(value);
-					this.SendPropertyChanging();
-					this._maPT = value;
-					this.SendPropertyChanged("maPT");
-					this.OnmaPTChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tenPT", DbType="NVarChar(10)")]
-		public string tenPT
-		{
-			get
-			{
-				return this._tenPT;
-			}
-			set
-			{
-				if ((this._tenPT != value))
-				{
-					this.OntenPTChanging(value);
-					this.SendPropertyChanging();
-					this._tenPT = value;
-					this.SendPropertyChanged("tenPT");
-					this.OntenPTChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResetPass")]
-	public partial class ResetPass : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _maRS;
-		
-		private System.Nullable<int> _ID_NguoiDung;
-		
-		private string _ThoiHan;
-		
-		private EntityRef<TaiKhoan> _TaiKhoan;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnmaRSChanging(string value);
-    partial void OnmaRSChanged();
-    partial void OnID_NguoiDungChanging(System.Nullable<int> value);
-    partial void OnID_NguoiDungChanged();
-    partial void OnThoiHanChanging(string value);
-    partial void OnThoiHanChanged();
-    #endregion
-		
-		public ResetPass()
-		{
-			this._TaiKhoan = default(EntityRef<TaiKhoan>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_maRS", DbType="VarChar(32) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string maRS
-		{
-			get
-			{
-				return this._maRS;
-			}
-			set
-			{
-				if ((this._maRS != value))
-				{
-					this.OnmaRSChanging(value);
-					this.SendPropertyChanging();
-					this._maRS = value;
-					this.SendPropertyChanged("maRS");
-					this.OnmaRSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_NguoiDung", DbType="Int")]
-		public System.Nullable<int> ID_NguoiDung
-		{
-			get
-			{
-				return this._ID_NguoiDung;
-			}
-			set
-			{
-				if ((this._ID_NguoiDung != value))
-				{
-					if (this._TaiKhoan.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnID_NguoiDungChanging(value);
-					this.SendPropertyChanging();
-					this._ID_NguoiDung = value;
-					this.SendPropertyChanged("ID_NguoiDung");
-					this.OnID_NguoiDungChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThoiHan", DbType="VarChar(20)")]
-		public string ThoiHan
-		{
-			get
-			{
-				return this._ThoiHan;
-			}
-			set
-			{
-				if ((this._ThoiHan != value))
-				{
-					this.OnThoiHanChanging(value);
-					this.SendPropertyChanging();
-					this._ThoiHan = value;
-					this.SendPropertyChanged("ThoiHan");
-					this.OnThoiHanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaiKhoan_ResetPass", Storage="_TaiKhoan", ThisKey="ID_NguoiDung", OtherKey="ID", IsForeignKey=true)]
-		public TaiKhoan TaiKhoan
-		{
-			get
-			{
-				return this._TaiKhoan.Entity;
-			}
-			set
-			{
-				TaiKhoan previousValue = this._TaiKhoan.Entity;
-				if (((previousValue != value) 
-							|| (this._TaiKhoan.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TaiKhoan.Entity = null;
-						previousValue.ResetPasses.Remove(this);
-					}
-					this._TaiKhoan.Entity = value;
-					if ((value != null))
-					{
-						value.ResetPasses.Add(this);
-						this._ID_NguoiDung = value.ID;
-					}
-					else
-					{
-						this._ID_NguoiDung = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("TaiKhoan");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2016,6 +1796,319 @@ namespace WebStoreFZF.Models
 		{
 			this.SendPropertyChanging();
 			entity.TinhTrang = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PTThanhToan")]
+	public partial class PTThanhToan : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _maPT;
+		
+		private string _tenPT;
+		
+		private EntitySet<DONHANG> _DONHANGs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnmaPTChanging(string value);
+    partial void OnmaPTChanged();
+    partial void OntenPTChanging(string value);
+    partial void OntenPTChanged();
+    #endregion
+		
+		public PTThanhToan()
+		{
+			this._DONHANGs = new EntitySet<DONHANG>(new Action<DONHANG>(this.attach_DONHANGs), new Action<DONHANG>(this.detach_DONHANGs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_maPT", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string maPT
+		{
+			get
+			{
+				return this._maPT;
+			}
+			set
+			{
+				if ((this._maPT != value))
+				{
+					this.OnmaPTChanging(value);
+					this.SendPropertyChanging();
+					this._maPT = value;
+					this.SendPropertyChanged("maPT");
+					this.OnmaPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tenPT", DbType="NVarChar(10)")]
+		public string tenPT
+		{
+			get
+			{
+				return this._tenPT;
+			}
+			set
+			{
+				if ((this._tenPT != value))
+				{
+					this.OntenPTChanging(value);
+					this.SendPropertyChanging();
+					this._tenPT = value;
+					this.SendPropertyChanged("tenPT");
+					this.OntenPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PTThanhToan_DONHANG", Storage="_DONHANGs", ThisKey="maPT", OtherKey="Mapt")]
+		public EntitySet<DONHANG> DONHANGs
+		{
+			get
+			{
+				return this._DONHANGs;
+			}
+			set
+			{
+				this._DONHANGs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DONHANGs(DONHANG entity)
+		{
+			this.SendPropertyChanging();
+			entity.PTThanhToan = this;
+		}
+		
+		private void detach_DONHANGs(DONHANG entity)
+		{
+			this.SendPropertyChanging();
+			entity.PTThanhToan = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResetPass")]
+	public partial class ResetPass : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _maRS;
+		
+		private System.Nullable<int> _ID_NguoiDung;
+		
+		private string _ThoiHan;
+		
+		private EntityRef<TaiKhoan> _TaiKhoan;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnmaRSChanging(string value);
+    partial void OnmaRSChanged();
+    partial void OnID_NguoiDungChanging(System.Nullable<int> value);
+    partial void OnID_NguoiDungChanged();
+    partial void OnThoiHanChanging(string value);
+    partial void OnThoiHanChanged();
+    #endregion
+		
+		public ResetPass()
+		{
+			this._TaiKhoan = default(EntityRef<TaiKhoan>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_maRS", DbType="VarChar(32) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string maRS
+		{
+			get
+			{
+				return this._maRS;
+			}
+			set
+			{
+				if ((this._maRS != value))
+				{
+					this.OnmaRSChanging(value);
+					this.SendPropertyChanging();
+					this._maRS = value;
+					this.SendPropertyChanged("maRS");
+					this.OnmaRSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_NguoiDung", DbType="Int")]
+		public System.Nullable<int> ID_NguoiDung
+		{
+			get
+			{
+				return this._ID_NguoiDung;
+			}
+			set
+			{
+				if ((this._ID_NguoiDung != value))
+				{
+					if (this._TaiKhoan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnID_NguoiDungChanging(value);
+					this.SendPropertyChanging();
+					this._ID_NguoiDung = value;
+					this.SendPropertyChanged("ID_NguoiDung");
+					this.OnID_NguoiDungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThoiHan", DbType="VarChar(20)")]
+		public string ThoiHan
+		{
+			get
+			{
+				return this._ThoiHan;
+			}
+			set
+			{
+				if ((this._ThoiHan != value))
+				{
+					this.OnThoiHanChanging(value);
+					this.SendPropertyChanging();
+					this._ThoiHan = value;
+					this.SendPropertyChanged("ThoiHan");
+					this.OnThoiHanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaiKhoan_ResetPass", Storage="_TaiKhoan", ThisKey="ID_NguoiDung", OtherKey="ID", IsForeignKey=true)]
+		public TaiKhoan TaiKhoan
+		{
+			get
+			{
+				return this._TaiKhoan.Entity;
+			}
+			set
+			{
+				TaiKhoan previousValue = this._TaiKhoan.Entity;
+				if (((previousValue != value) 
+							|| (this._TaiKhoan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TaiKhoan.Entity = null;
+						previousValue.ResetPasses.Remove(this);
+					}
+					this._TaiKhoan.Entity = value;
+					if ((value != null))
+					{
+						value.ResetPasses.Add(this);
+						this._ID_NguoiDung = value.ID;
+					}
+					else
+					{
+						this._ID_NguoiDung = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TaiKhoan");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -12,15 +12,15 @@
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content">
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <div class="section-title">
-                                    <h4>Điện thoại nổi bật</h4>
-                                </div>
+                                <h4>Điện thoại nổi bật</h4>
+                            </div>
                             <div class="row" style="width:1400px">
                                 @foreach (var item in Model)
                                 {
                                     if (item.HangSX.IdLOAISP == 1)
                                     {
-                                        <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
-                                            <div class="col lg-7" style="margin:15px 0">
+                                        <div class="col lg-7" style="margin:15px 0">
+                                            <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
                                                 <div class="card" style="width:200px">
                                                     <!-- Sale badge-->
                                                     <div class="badge bg-dark text-white position-absolute">Trả góp 0%</div>
@@ -29,17 +29,17 @@
                                                         <img class="card-img-top" src="@item.ANHBIA" alt="ip13promax" />
                                                     </div>
                                                     <!-- Product details-->
-                                                    <div class="card-body p-4" style="background-color:black">
+                                                    <div class="card-body p-4" style="background-color: #efefef">
                                                         <div class="text-center">
                                                             <!-- Product name-->
-                                                            <h5 class="fw-bolder bg-gray-700" style="font-weight:bold; color:dodgerblue">@item.TENSANPHAM</h5>
+                                                            <h5 class="fw-bolder bg-gray-700" style="font-weight:bold; color:black">@item.TENSANPHAM</h5>
                                                             <!-- Product price-->
-                                                            <div class="font-bold text-warning">@item.DONGIA VND</div>
+                                                            <div class="font-bold text-danger">@item.DONGIA VND</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     }
 
                                 }
