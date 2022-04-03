@@ -1474,6 +1474,8 @@ namespace WebStoreFZF.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgaySinh", DbType="DateTime")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
 		public System.Nullable<System.DateTime> NgaySinh
 		{
 			get
