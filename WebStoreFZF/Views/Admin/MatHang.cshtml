@@ -54,7 +54,7 @@
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.IdSANPHAM)</td>
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.TENSANPHAM)</td>
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.MOTA)</td>
-        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.DONGIA)</td>
+        <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.DONGIA) VND</td>
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.ROM)</td>
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.RAM)</td>
         <td class="border px-4 py-2">@Html.DisplayFor(modelItem => item.HangSX.TenHangSX)</td>
@@ -80,7 +80,7 @@
             @Model.PageCount
         </div>
         <div class="MenuTrang">
-            @Html.PagedListPager(Model, page => Url.Action("LoaiThietBi", new
+            @Html.PagedListPager(Model, page => Url.Action("MatHang", new
             {
                 page = page
             }))

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ThongKe";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
 
@@ -8,44 +8,44 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<figure class="highcharts-figure">
-    <div id="container" style="width: 1100px; height: 500px "></div>
-    <p class="highcharts-description">
-        <div>
-            <figure class="highcharts-figure">
-                <div id="container"></div>
-                <p class="highcharts-description">
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+                <figure class="highcharts-figure">
+                    <div id="container" style="width:1100px ;height:500px"></div>
+                    <p class="highcharts-description">
 
-                </p>
-            </figure>
+                    </p>
+                </figure>
 
+            </main>
         </div>
-    </p>
-</figure>
-<script>
-    $(document).ready(function () {
-        $.getJSON("/Admin/GetDataTk", function (data) {
-            var Names = []
-            var Qts = []
+    </div>
+</div>
+<script>$(document).ready(function () {
+        $.getJSON("/Admin/GetTong", function (data) {
+            var Qts = [];
+            var Months = [];
             for (var i = 0; i < data.length; i++) {
-                Names.push(data[i].name);
-                Qts.push(data[i].count);
+                Qts.push(data[i].count)
+                Months.push(data[i].months)
             }
             Highcharts.chart('container', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Biểu đồ sản phẩm bán được'
+                    text: 'Doanh thu theo tháng'
                 },
                 xAxis: {
-                    categories: Names,
+                    categories: Months,
                     crosshair: true
                 },
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Số lượng bán được'
+                        text: 'Doanh thu thu được'
                     }
                 },
                 tooltip: {
@@ -63,12 +63,11 @@
                     }
                 },
                 series: [{
-                    name: 'Sản phẩm',
+                    name: 'Thống Kê Theo Năm',
                     data: Qts
-                }]
+                }
+                ]
             });
-
         });
-    });
-</script>
+    });</script>
 

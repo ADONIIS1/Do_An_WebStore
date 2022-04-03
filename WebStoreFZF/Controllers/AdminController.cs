@@ -17,6 +17,27 @@ namespace WebStoreFZF.Controllers
         {
             return View();
         }
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult GetDataTk()
+        {
+            MyDataContextDataContext context = new MyDataContextDataContext();
+            var data = context.CTDONHANGs.Include("SANPHAM")
+                .GroupBy(p => p.SANPHAM.TENSANPHAM)
+                .Select(g => new { name = g.Key, count = g.Sum(w => w.SOLUONG) }).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTong()
+        {
+            var query = data.CTDONHANGs.Include(i => i.DONHANG)
+                                        .Include(g => g.SANPHAM)
+                                      .GroupBy(n => new { thangs = n.DONHANG.NGAYDAT.Value.Month })
+                                     .Select(s => new { months = s.Key.thangs, count = s.Sum(w => w.THANHTIEN) });
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult LoaiThietBi(int? page)
         {
@@ -24,7 +45,7 @@ namespace WebStoreFZF.Controllers
             //Phân Trang
             if (page == null) page = 1;
             var all_loai = (from s in data.LOAISANPHAMs select s).OrderBy(m => m.IdLOAISP);
-            int pageSize = 2;
+            int pageSize = 10;
             int pageNum = page ?? 1;
             return View(all_loai.ToPagedList(pageNum, pageSize));
         }
@@ -93,7 +114,7 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult HangSanXuat(int? page, int? IdLOAISP)
         {
-            int pageSize = 2;
+            int pageSize = 10;
             int pageNum = page ?? 1;
             ViewBag.IdLoaiSP = new SelectList((data.LOAISANPHAMs).ToList(), "IdLOAISP", "TENLOAISP");
 
@@ -175,7 +196,7 @@ namespace WebStoreFZF.Controllers
         }
         public ActionResult MatHang(int? page, int? IdHangSX)
         {
-            int pageSize = 2;
+            int pageSize = 10;
             int pageNum = page ?? 1;
             ViewBag.IdHangSX = new SelectList((data.HangSXes).ToList(), "IdHangSX", "TenHangSX");
 
