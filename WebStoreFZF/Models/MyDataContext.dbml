@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WebStoreFZF" Class="MyDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=WebStoreFZF;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="WebStoreFZFConnectionString2" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.CTDONHANG" Member="CTDONHANGs">
-    <Type Name="CTDONHANG">
-      <Column Name="IdDONHANG" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="IdSANPHAM" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SOLUONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DONGIA" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="THANHTIEN" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Association Name="DONHANG_CTDONHANG" Member="DONHANG" ThisKey="IdDONHANG" OtherKey="IdDONHANG" Type="DONHANG" IsForeignKey="true" />
-      <Association Name="SANPHAM_CTDONHANG" Member="SANPHAM" ThisKey="IdSANPHAM" OtherKey="IdSANPHAM" Type="SANPHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DONHANG" Member="DONHANGs">
     <Type Name="DONHANG">
       <Column Name="IdDONHANG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -19,8 +8,16 @@
       <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Mapt" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Association Name="DONHANG_CTDONHANG" Member="CTDONHANGs" ThisKey="IdDONHANG" OtherKey="IdDONHANG" Type="CTDONHANG" />
-      <Association Name="TaiKhoan_DONHANG" Member="TaiKhoan" ThisKey="ID" OtherKey="ID" Type="TaiKhoan" IsForeignKey="true" />
       <Association Name="PTThanhToan_DONHANG" Member="PTThanhToan" ThisKey="Mapt" OtherKey="maPT" Type="PTThanhToan" IsForeignKey="true" />
+      <Association Name="TaiKhoan_DONHANG" Member="TaiKhoan" ThisKey="ID" OtherKey="ID" Type="TaiKhoan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TinhTrang" Member="TinhTrangs">
+    <Type Name="TinhTrang">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="maTinhTrang" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenTinhTrang" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="TinhTrang_TaiKhoan" Member="TaiKhoans" ThisKey="maTinhTrang" OtherKey="maTinhTrang" Type="TaiKhoan" />
     </Type>
   </Table>
   <Table Name="dbo.HangSX" Member="HangSXes">
@@ -38,6 +35,23 @@
       <Column Name="IdLOAISP" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TENLOAISP" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Association Name="LOAISANPHAM_HangSX" Member="HangSXes" ThisKey="IdLOAISP" OtherKey="IdLOAISP" Type="HangSX" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PTThanhToan" Member="PTThanhToans">
+    <Type Name="PTThanhToan">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="maPT" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenPT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="PTThanhToan_DONHANG" Member="DONHANGs" ThisKey="maPT" OtherKey="Mapt" Type="DONHANG" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResetPass" Member="ResetPasses">
+    <Type Name="ResetPass">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="maRS" Type="System.String" DbType="VarChar(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_NguoiDung" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ThoiHan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="TaiKhoan_ResetPass" Member="TaiKhoan" ThisKey="ID_NguoiDung" OtherKey="ID" Type="TaiKhoan" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SANPHAM" Member="SANPHAMs">
@@ -71,29 +85,15 @@
       <Association Name="TinhTrang_TaiKhoan" Member="TinhTrang" ThisKey="maTinhTrang" OtherKey="maTinhTrang" Type="TinhTrang" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.TinhTrang" Member="TinhTrangs">
-    <Type Name="TinhTrang">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="maTinhTrang" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="tenTinhTrang" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Association Name="TinhTrang_TaiKhoan" Member="TaiKhoans" ThisKey="maTinhTrang" OtherKey="maTinhTrang" Type="TaiKhoan" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PTThanhToan" Member="PTThanhToans">
-    <Type Name="PTThanhToan">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="maPT" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="tenPT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Association Name="PTThanhToan_DONHANG" Member="DONHANGs" ThisKey="maPT" OtherKey="Mapt" Type="DONHANG" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ResetPass" Member="ResetPasses">
-    <Type Name="ResetPass">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="maRS" Type="System.String" DbType="VarChar(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ID_NguoiDung" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ThoiHan" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Association Name="TaiKhoan_ResetPass" Member="TaiKhoan" ThisKey="ID_NguoiDung" OtherKey="ID" Type="TaiKhoan" IsForeignKey="true" />
+  <Table Name="dbo.CTDONHANG" Member="CTDONHANGs">
+    <Type Name="CTDONHANG">
+      <Column Name="IdDONHANG" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdSANPHAM" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SOLUONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DONGIA" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="THANHTIEN" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="DONHANG_CTDONHANG" Member="DONHANG" ThisKey="IdDONHANG" OtherKey="IdDONHANG" Type="DONHANG" IsForeignKey="true" />
+      <Association Name="SANPHAM_CTDONHANG" Member="SANPHAM" ThisKey="IdSANPHAM" OtherKey="IdSANPHAM" Type="SANPHAM" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

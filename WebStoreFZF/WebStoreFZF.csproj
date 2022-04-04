@@ -148,6 +148,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SanPham.cs" />
+    <Compile Include="Models\SanPhanHangSX.cs" />
     <Compile Include="Models\SPVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -411,20 +413,19 @@
     <Content Include="Views\Admin\MatHang.cshtml" />
     <Content Include="Views\Admin\ThemSP.cshtml" />
     <Content Include="Views\Admin\SuaSP.cshtml" />
-    <Content Include="Views\Products\Phone.cshtml" />
-    <Content Include="Views\Products\Laptop.cshtml" />
-    <Content Include="Views\Products\ThongTin_DatMua.cshtml" />
-    <Content Include="Views\Products\AllProducts.cshtml" />
     <Content Include="Views\GioHang\GioHang.cshtml" />
     <Content Include="Views\GioHang\GioHangPartial.cshtml" />
-    <Content Include="Views\Products\Phone_SamSung.cshtml" />
-    <Content Include="Views\Products\Phone_Oppo.cshtml" />
-    <Content Include="Views\Products\Phone_ViVo.cshtml" />
-    <Content Include="Views\Products\Phone_Xiaomi.cshtml" />
-    <Content Include="Views\Products\Phone_Nokia.cshtml" />
-    <Content Include="Views\Products\Laptop_Asus.cshtml" />
-    <Content Include="Views\Products\Laptop_Lenovo.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Products\AllProducts.cshtml" />
+    <Content Include="Views\Products\ThongTin_DatMua.cshtml" />
+    <Content Include="Views\Products\TrangTimKiem.cshtml" />
+    <Content Include="Views\Products\Phone.cshtml" />
+    <Content Include="Views\Products\LoaiDienThoai.cshtml" />
+    <Content Include="Views\Products\Laptop.cshtml" />
+    <Content Include="Views\Products\LoaiLaptop.cshtml" />
+    <Content Include="Views\Products\Accessory.cshtml" />
+    <Content Include="Views\Products\LoaiPhuKien.cshtml" />
+    <Content Include="Views\Shared\LayoutChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

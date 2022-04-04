@@ -1,11 +1,27 @@
-﻿@model PagedList.IPagedList<WebStoreFZF.Models.SANPHAM>
+﻿@model PagedList.IPagedList<WebStoreFZF.Models.SanPhamHangSX>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "LapTop";
+    ViewBag.Title = "Laptop";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="product spad" style="margin-right:200px">
+<div class="container" style="background-color:yellow">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            if (item.IdSANPHAM == -1 && item.IdLOAISP == 2)
+            {
+                <div class="col-md-1">
+                    <a href="@Url.Action("LoaiLaptop", new { id = item.IdHangSX })">
+                        <img class="rounded" src="@Html.DisplayFor(itemModel => item.hinh)" alt="@item.TenHangSX" />
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<section class="product spad">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row">
             <div class="col-lg-12">
@@ -15,30 +31,36 @@
                             @*<div class="section-title">
                                     <h4>Trending Now</h4>
                                 </div>*@
-                            <div class="row" style="width:1400px">
+                            <div class="row" style="width:500%; margin-left:15px">
                                 @foreach (var item in Model)
                                 {
-                                    <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
-                                        <div class="col lg-7" style="margin:15px 0">
-                                            <div class="card" style="width:200px">
-                                                <!-- Sale badge-->
-                                                <div class="badge bg-dark text-white position-absolute">Trả góp 0%</div>
-                                                <!-- Product image-->
-                                                <div style="margin :40px 10px 0px 10px">
-                                                    <img class="card-img-top" src="@item.ANHBIA" alt="ip13promax" />
-                                                </div>
-                                                <!-- Product details-->
-                                                <div class="card-body p-4" style="background-color:black">
-                                                    <div class="text-center">
-                                                        <!-- Product name-->
-                                                        <h5 class="fw-bolder bg-gray-700" style="font-weight:bold; color:dodgerblue">@item.TENSANPHAM</h5>
-                                                        <!-- Product price-->
-                                                        <div class="font-bold text-warning">@item.DONGIA VND</div>
+                                    if (item.IdSANPHAM != -1 && item.IdLOAISP == 2)
+                                    {
+                                        <div class="col-md-4" style="margin:15px 20px; width:230px">
+                                            <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
+                                                <div class="col-md-4" style="margin:15px 22px">
+                                                    <div class="card" style="width:200px;height:370px">
+                                                        <!-- Sale badge-->
+                                                        <div class="badge bg-dark text-white position-absolute">Trả góp 0%</div>
+                                                        <!-- Product image-->
+                                                        <div style="margin :40px 10px 0px 10px">
+                                                            <img class="card-img-top" src="@item.ANHBIA" style="width:180px;height:200px" alt="@item.TENSANPHAM" />
+                                                        </div>
+                                                        <!-- Product details-->
+                                                        <div class="card-body p-7" style="background-color: #E0E0E0; width: 200px; height: 180px ">
+                                                            <div class="text-center" style="width:180px">
+                                                                <!-- Product name-->
+                                                                <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration: none;">@item.TENSANPHAM</h5>
+                                                                <!-- Product price-->
+                                                                <div style="color: #000000; text-decoration: auto;">@Html.DisplayFor(modelItem => item.DONGIA) VND</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    }
+
                                 }
                             </div>
                         </div>
@@ -106,3 +128,4 @@
         display: none;
     }
 </style>
+

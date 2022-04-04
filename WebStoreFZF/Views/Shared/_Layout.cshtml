@@ -11,7 +11,7 @@
 
     <link rel="apple-touch-icon" href="~/assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">
-
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/assets/css/templatemo.css">
     <link rel="stylesheet" href="~/assets/css/custom.css">
@@ -30,13 +30,12 @@
 
 <body>
     <!-- Start Top Nav -->
-
     <!-- Close Top Nav -->
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="/Products/AllProducts">
                 WebStore
             </a>
 
@@ -48,17 +47,19 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Trang Chủ</a>
+                            <a class="nav-link" href="/Products/AllProducts">Trang Chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Laptop</a>
+                            <a class="nav-link" href="/Products/Laptop">Laptop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Điện Thoại</a>
+                            <a class="nav-link" href="/Products/Phone">Điện Thoại</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Phụ Kiện</a>
+                            <a class="nav-link" href="/Products/Accessory">Phụ Kiện</a>
                         </li>
+
+
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
@@ -139,9 +140,11 @@
         </a>
     </div>
     <!-- Start Banner Hero -->
+    <script src="https://kit.fontawesome.com/1b769e4d11.js" crossorigin="anonymous"></script>
 
-
+    
     @RenderBody()
+
 
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
