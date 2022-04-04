@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="background-color:yellow">
+<div class="container" style="background-color: #ffffff">
     <div class="row">
         @foreach (var item in Model)
         {
@@ -52,7 +52,7 @@
                                                                 <!-- Product name-->
                                                                 <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration: none;">@item.TENSANPHAM</h5>
                                                                 <!-- Product price-->
-                                                                <div style="color: #000000; text-decoration: auto;">@Html.DisplayFor(modelItem => item.DONGIA) VND</div>
+                                                                <div style="color: #000000; text-decoration: auto;">@String.Format("{0:0,0}", @item.DONGIA) VNĐ</div>
                                                             </div>
                                                         </div>
                                                     </div>

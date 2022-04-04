@@ -22,23 +22,23 @@
                                     {
                                         if (item.IdLOAISP == 1)
                                         {
-                                            <div class="col-md-4" style="margin:15px 20px; width:230px">
+                                            <div class="col-md-4" style="margin: 15px 20px; width: 230px; text-decoration: none">
                                                 <a href="@Url.Action("ThongTin_DatMua", new { id = item.IdSANPHAM })" style="margin:0 10px">
-                                                    <div class="col-md-4" style="margin:15px 22px">
-                                                        <div class="card" style="width:200px;height:370px">
+                                                    <div class="col-md-4" style="margin:15px 22px; text-decoration: none">
+                                                        <div class="card" style="width: 200px; height: 370px; text-decoration: none">
                                                             <!-- Sale badge-->
-                                                            <div class="badge bg-dark text-white position-absolute">Trả góp 0%</div>
+                                                            <div class="badge bg-dark text-white position-absolute" style=" text-decoration: none">Trả góp 0%</div>
                                                             <!-- Product image-->
-                                                            <div style="margin :40px 10px 0px 10px">
-                                                                <img class="card-img-top" src="@item.ANHBIA" style="width:180px;height:200px" alt="@item.TENSANPHAM" />
+                                                            <div style="margin: 40px 10px 0px 10px; text-decoration: none">
+                                                                <img class="card-img-top" src="@item.ANHBIA" style="width: 180px; height: 200px; text-decoration: none " alt="@item.TENSANPHAM" />
                                                             </div>
                                                             <!-- Product details-->
-                                                            <div class="card-body p-7" style="background-color: #E0E0E0; width: 200px; height: 180px ">
+                                                            <div class="card-body p-7" style="background-color: #E0E0E0; width: 200px; height: 180px; text-decoration: none">
                                                                 <div class="text-center" style="width:180px">
                                                                     <!-- Product name-->
-                                                                    <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration: none;">@item.TENSANPHAM</h5>
+                                                                    <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration : none;">@item.TENSANPHAM</h5>
                                                                     <!-- Product price-->
-                                                                    <div style="color: #000000; text-decoration: auto;">@Html.DisplayFor(modelItem => item.DONGIA) VND</div>
+                                                                    <div style="color: #000000; text-decoration: auto;">@String.Format("{0:0,0}", @item.DONGIA) VNĐ</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -89,7 +89,7 @@
                                                                     <!-- Product name-->
                                                                     <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration: none;">@item.TENSANPHAM</h5>
                                                                     <!-- Product price-->
-                                                                    <div style="color: #000000; text-decoration: auto;">@Html.DisplayFor(modelItem => item.DONGIA) VND</div>
+                                                                    <div style="color: #000000; text-decoration: auto;">@String.Format("{0:0,0}", @item.DONGIA) VNĐ</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -140,7 +140,7 @@
                                                                     <!-- Product name-->
                                                                     <h5 class="fw-bolder bg-gray-700" style="font-weight: bold; color: dodgerblue; text-decoration: none;">@item.TENSANPHAM</h5>
                                                                     <!-- Product price-->
-                                                                    <div style="color: #000000; text-decoration: auto;">@Html.DisplayFor(modelItem => item.DONGIA) VND</div>
+                                                                    <div style="color: #000000; text-decoration: auto;">@String.Format("{0:0,0}", @item.DONGIA) VNĐ</div>
                                                                 </div>
                                                             </div>
                                                         </div>

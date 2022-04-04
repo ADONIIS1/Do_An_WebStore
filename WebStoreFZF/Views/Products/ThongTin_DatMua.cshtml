@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="h2">@Model.TENSANPHAM</h1>
-                        <p class="h3 py-2">@Model.DONGIA VND</p>
+                        <p class="h3 py-2">@String.Format("{0:0,0}", @Model.DONGIA) VNĐ </p>
                         <p class="py-2">
                             <i class="fa fa-star text-warning"></i>
                             <i class="fa fa-star text-warning"></i>
@@ -33,24 +33,27 @@
 
                         <h6>Mô tả</h6>
                         <p>@Model.MOTA</p>
+                        @if (@Model.ROM != null || @Model.RAM != null)
+                        {
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Rom:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p><strong>@Model.ROM G</strong></p>
+                                </li>
+                            </ul>
 
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <h6>Rom:</h6>
-                            </li>
-                            <li class="list-inline-item">
-                                <p><strong>@Model.ROM G</strong></p>
-                            </li>
-                        </ul>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Ram:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p><strong>@Model.RAM G</strong></p>
+                                </li>
+                            </ul>
+                        }
 
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <h6>Ram:</h6>
-                            </li>
-                            <li class="list-inline-item">
-                                <p><strong>@Model.RAM G</strong></p>
-                            </li>
-                        </ul>
 
                         <form action="" method="GET">
                             <input type="hidden" name="product-title" value="Activewear">
@@ -68,8 +71,10 @@
                                     </ul>
                                 </div>
                             </div>
+
                             <div class="row pb-3">
                                 <div class="DatMua">
+
                                     <a class="btn btn-success" href="@Url.Action("ThemGioHang", "GioHang",
                                 new { @id = Model.IdSANPHAM, @strURL = Request.Url.ToString() })">Đặt mua</a>
                                 </div>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<WebStoreFZF.Models.GioHang>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/checkout.css" rel="stylesheet" />
+    <link href="~/Content/cart.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>StoreFZF Cart</title>
+</head>
+<body>
+    <div class="container">
+
+        <h1>StoreFZF Cart</h1>
+
+        <div class="cart">
+            <div class="products">
+
+                @foreach (var item in Model)
+                {
+                    <div class="product">
+                        <img src="@item.ANHBIA" />
+                        <div class="product-info">
+                            <h3 class="product-name">@Html.DisplayFor(modelItem => item.TENSANPHAM)</h3>
+                            <h4 class="product-price">Giá : @String.Format("{0:0,0}", item.DONGIA) VNĐ </h4>
+                            <h4 class="product-offer">Giá Thành: @String.Format("{0:0,0}", item.DONGIA * @item.iSoluong) VNĐ</h4>
+                            <p class="product-quantity">Số Lượng: @item.iSoluong</p>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+            @using WebStoreFZF.Models
+            @{
+                TaiKhoan kh = (TaiKhoan)Session["Accouts"];
+            }
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div class="cart-total">
+                    <p>
+                        <span>Số sản phẩm</span>
+                        <span>@ViewBag.TongSoluongsanpham</span>
+                    </p>
+                    <p>
+                        <span>Số lượng Sản Phẩm:</span>
+                        <span>@ViewBag.TongSoluong</span>
+                    </p>
+                    <p>
+                        <span>Tổng Tiền:</span>
+                        <span> @String.Format("{0:0,0}", @ViewBag.Tongtien) VNĐ</span>
+                    </p>
+
+                    <div class="ThongTinhKhachhang">
+                        <h2 style="text-align: center; color:red;">Thông Tin Khách Hàng</h2>
+                        <br>
+                        <p>
+                            <span style="font-weight: bold;">Tên Khách </span>
+                            <span>@kh.HoTen</span>
+                        </p>
+                        <p>
+                            <span style="font-weight: bold;">Địa Chỉ Giao</span>
+                            <span><input type="text" name="DiachiGiao" style="font-size:20px; width: 170px " value="@kh.DiaChi" /> </span>
+                        </p>
+                        <p>
+                            <span style="font-weight: bold;">Số Điện Thoại</span>
+                            <span>@kh.SDT</span>
+                        </p>
+                        <p>
+                            <span style="font-weight: bold;">Email</span>
+                            <span>@kh.Email</span>
+                        </p>
+                        <p>
+                            <span style="font-weight: bold;">Ngày Đặt</span>
+                            <span>@DateTime.Now.ToString("dd/MM/yyyy")</span>
+                        </p>
+                        <hr />
+                        <div class="delivery-info payment-method">
+                            <div class="delivery-info-title">
+                                <div class="delivery-info-title-left">Phương thức thanh toán</div>
+                            </div>
+                            <br>
+                            <div class="delivery-info-content">
+                                <label class="container-radio">
+                                    <span>Thanh toán khi nhận hàng</span>
+                                    <input checked type="radio" name="type" value="cod">
+                                    <span class="checkmark-radio"></span>
+                                </label>
+                                <br>
+                                <label class="container-radio">
+                                    <span>Thanh toán qua MOMO</span>
+                                    <input type="radio" name="type" value="momo">
+                                    <span class="checkmark-radio"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+                        <hr />
+                        <br>
+                        <a> <input type="submit" value="Thanh Toán" class="btn btn-success" style="background-color:transparent;color:white; width:340px; height:40px" /></a>
+                        <br>
+                        <a href="@Url.Action("AllProducts", "Products")">Về Trang Chủ</a>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</body>
+</html>

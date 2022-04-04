@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebStoreFZF.Models;
+using WebStoreFZF.MoMo;
+using WebTraSua.MoMo;
 
 namespace WebStoreFZF.Controllers
 {
@@ -29,6 +32,7 @@ namespace WebStoreFZF.Controllers
             if (sanpham == null)
             {
                 sanpham = new GioHang(id);
+                
                 lstGiohang.Add(sanpham);
                 return Redirect(strURL);
             }
@@ -81,13 +85,6 @@ namespace WebStoreFZF.Controllers
             return View(lstGiohang);
         }
 
-        public ActionResult GioHangPartial()
-        {
-            ViewBag.Tongsoluong = TongSoLuong();
-            ViewBag.Tongtien = TongTien();
-            ViewBag.Tongsoluongsanpham = TongSoLuongSanPham();
-            return PartialView();
-        }
 
         public ActionResult XoaGioHang(int id)
         {
@@ -122,13 +119,13 @@ namespace WebStoreFZF.Controllers
         [HttpGet]
         public ActionResult DatHang()
         {
-            if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
+            if (Session["Accouts"] == null || Session["Accouts"].ToString() == "")
             {
-                return RedirectToAction("DangNhap", "NguoiDung");
+                return RedirectToAction("Login", "Accounts");
             }
             if (Session["GioHang"] == null)
             {
-                return RedirectToAction("Index", "Sach");
+                return RedirectToAction("AllProducts", "Products");
             }
             List<GioHang> lstGiohang = Laygiohang();
             ViewBag.Tongsoluong = TongSoLuong();
@@ -136,39 +133,99 @@ namespace WebStoreFZF.Controllers
             ViewBag.Tongsoluongsanpham = TongSoLuongSanPham();
             return View(lstGiohang);
         }
-
         public ActionResult DatHang(FormCollection collection)
         {
             DONHANG dh = new DONHANG();
-            TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+            TaiKhoan tk = (TaiKhoan)Session["Accouts"];
             SANPHAM s = new SANPHAM();
 
-
-            List<GioHang> gh = Laygiohang();
-            var ngaygiao = String.Format("{0:dd/MM/yyyy}", collection["NgayGiao"]);
-
-            dh.ID = tk.ID;
-            dh.NGAYDAT = DateTime.Now;
-            dh.TINHTRANG = 0;
-
-            data.DONHANGs.InsertOnSubmit(dh);
-            data.SubmitChanges();
-
-            foreach (var item in gh)
+            if (collection["type"] == "cod")
             {
-                CTDONHANG ctdh = new CTDONHANG();
-                ctdh.IdDONHANG = dh.IdDONHANG;
-                ctdh.SOLUONG = item.iSoluong;
-                ctdh.IdSANPHAM = item.IdSanPham;
-                ctdh.DONGIA = (double)item.DONGIA;
-                s = data.SANPHAMs.Single(n => n.IdSANPHAM == item.IdSanPham);
+                List<GioHang> gh = Laygiohang();
+
+
+                dh.ID = tk.ID;
+                dh.NGAYDAT = DateTime.Now;
+                dh.TINHTRANG = 0;
+
+                data.DONHANGs.InsertOnSubmit(dh);
                 data.SubmitChanges();
-                data.CTDONHANGs.InsertOnSubmit(ctdh);
+
+                foreach (var item in gh)
+                {
+                    CTDONHANG ctdh = new CTDONHANG();
+                    ctdh.IdDONHANG = dh.IdDONHANG;
+                    ctdh.SOLUONG = item.iSoluong;
+                    ctdh.IdSANPHAM = item.IdSanPham;
+                    ctdh.DONGIA = (double)item.DONGIA;
+                    s = data.SANPHAMs.Single(n => n.IdSANPHAM == item.IdSanPham);
+                    data.SubmitChanges();
+                    data.CTDONHANGs.InsertOnSubmit(ctdh);
+                }
+
+                data.SubmitChanges();
+                Session["Giohang"] = null;
+            }
+            else
+            {
+                //request params need to request to MoMo system
+                string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+                string partnerCode = "MOMOV7Z220220402";
+                string accessKey = "8tnKdJLoTI72htiB";
+                string serectkey = "whxqk45Vq6RJHimJuBy6sAFqMPQt6rug";
+                string orderInfo = "Thanh Toán Store";
+                string host = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "");
+                string returnUrl = host + "/ReturnMoMo";
+                string notifyurl = host + "/NotifyMoMo";
+                string amount = TongTien().ToString();
+                string orderid = Guid.NewGuid().ToString();
+                string requestId = Guid.NewGuid().ToString();
+                string extraData = "";
+
+
+                //Before sign HMAC SHA256 signature
+                string rawHash = "partnerCode=" +
+                    partnerCode + "&accessKey=" +
+                    accessKey + "&requestId=" +
+                    requestId + "&amount=" +
+                    amount + "&orderId=" +
+                    orderid + "&orderInfo=" +
+                    orderInfo + "&returnUrl=" +
+                    returnUrl + "&notifyUrl=" +
+                    notifyurl + "&extraData=" +
+                    extraData;
+
+                MoMoSecurity crypto = new MoMoSecurity();
+                //sign signature SHA256
+                string signature = crypto.signSHA256(rawHash, serectkey);
+
+                //build body json request
+                JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "accessKey", accessKey },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderid },
+                { "orderInfo", orderInfo },
+                { "returnUrl", returnUrl },
+                { "notifyUrl", notifyurl },
+                { "extraData", extraData },
+                { "requestType", "captureMoMoWallet" },
+                { "signature", signature }
+
+            };
+
+                string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+
+                JObject jmessage = JObject.Parse(responseFromMomo);
+
+                return Redirect(jmessage.GetValue("payUrl").ToString());
             }
 
-            data.SubmitChanges();
-            Session["Giohang"] = null;
-            return RedirectToAction("XacnhanDonhang", "GioHang");
+            return RedirectToAction("NotifForm", "Accounts", new { title = "Thanh Toán Thành Công", msg = "Vui lòng check mail để xác nhận Mail!" });
+
         }
     }
+
 }

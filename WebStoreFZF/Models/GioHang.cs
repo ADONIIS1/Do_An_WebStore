@@ -41,7 +41,7 @@ namespace WebStoreFZF.Models
             get { return iSoluong * DONGIA; }
         }
 
-        public GioHang(int id)
+        public GioHang(int id )
         {
             IdSanPham = id;
             SANPHAM sp = data.SANPHAMs.Single(m => m.IdSANPHAM == IdSanPham);
@@ -50,6 +50,7 @@ namespace WebStoreFZF.Models
             DONGIA = double.Parse(sp.DONGIA.ToString());
             ROM = int.Parse(sp.ROM.ToString());
             RAM = int.Parse(sp.RAM.ToString());
+            iSoluong = 1;
             ANHBIA = sp.ANHBIA;
             IdHangSX = int.Parse(sp.IdHangSX.ToString());
         }
